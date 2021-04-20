@@ -7,6 +7,8 @@ public:
     std::string getCode() const;
     double getLatitude() const;
     double getLongitude() const;
+
+    bool operator==(const Airport& rhs) const;
 private:
     std::string code_;
     double latitude_;

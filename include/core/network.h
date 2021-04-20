@@ -13,7 +13,7 @@ public:
      * @param airports_filename the CSV file containing entries for airports
      * @param flights_filename the CSV file containing entries for flights
      */
-    Network(std::string airports_filename, std::string flights_filename);
+    Network(const std::string& airports_filename, const std::string& flights_filename);
 
 private:
     /**
