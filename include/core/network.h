@@ -2,7 +2,7 @@
 
 #include <string>
 #include <unordered_map>
-
+#include "core/airport.h"
 /**
  * Network class maintains airports and flights between them.
  */
@@ -20,12 +20,12 @@ private:
      * Populates graph with airports.
      * @param filename the CSV file with airports.
      */
-    void parseAirports(std::string filename);
+    void parseAirports(const std::string& filename);
 
     /**
      * Populates graph with flights. Method assumes that airports already exist.
      * @param filename the CSV file containing entries for flights
      */
-    void parseFlights(std::string filename);
-    std::unordered_map<std::string, std::unordered_map<std::string, double>> graph_;
+    void parseFlights(const std::string& filename);
+    std::unordered_map<Airport, std::unordered_map<Airport, double>> graph_;
 };
