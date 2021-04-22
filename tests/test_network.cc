@@ -2,15 +2,20 @@
 
 #include "core/network.h"
 
-Network net("airports.txt", "routes.txt");
+Network full_net("airports.txt", "routes.txt");
+Network small_net("airports_small.txt", "routes_small.txt");
+
 static constexpr double kEpsilon = 0.01;
 
 TEST_CASE("file reading") {
     //@TODO Implement SECTIONs to validate parsing
+    FlightGraph graph = small_net.GetGraph();
+
+
 }
 
 TEST_CASE("Validate distance computation") {
-    FlightGraph graph = net.GetGraph();
+    FlightGraph graph = full_net.GetGraph();
 
     SECTION("One way flight") {
         Airport kzn("KZN", 55.606201171875, 49.278701782227);

@@ -50,7 +50,7 @@ class Network {
      * @param a2 second airport
      * @return distance of the shortest path, in miles
      */
-    double ComputeShortestPath(const airport& a1, const Airport& a2) const;
+    double ComputeShortestPath(const Airport& a1, const Airport& a2) const;
 
     FlightGraph graph_;
     std::unordered_map<std::string, Airport> airports_;

@@ -68,7 +68,7 @@ double Network::ComputeDistance(const Airport& a1, const Airport& a2) const {
     return 2 * R * asin(sqrt(haversine));
 }
 
-double Network::ComputeShortestPath(const airport& a1, const Airport& a2) const {
+double Network::ComputeShortestPath(const Airport& a1, const Airport& a2) const {
     //@TODO Implement this function
     return 0;
 }
