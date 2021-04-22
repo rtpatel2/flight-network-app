@@ -43,9 +43,11 @@ void Network::parseFlights(const std::string &filename) {
         if (components.size() >= 5) {
             components[2].erase(remove(components[2].begin(), components[2].end(), '\"'), components[2].end());
             components[4].erase(remove(components[4].begin(), components[4].end(), '\"'), components[4].end());
-            Airport a(components[2], 0, 0);
-            Airport b(components[4], 0, 0);
-            graph_[a][b] = ComputeDistance(airports_[a.getCode()], airports_[b.getCode()]);
+            if (airports_.count(components[2]) == 1 && airports_.count(components[4]) == 1) {
+                Airport a(components[2], 0, 0);
+                Airport b(components[4], 0, 0);
+                graph_[a][b] = ComputeDistance(airports_[a.getCode()], airports_[b.getCode()]);
+            }
         }
     }
 }
