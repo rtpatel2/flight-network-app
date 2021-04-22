@@ -37,12 +37,20 @@ class Network {
     void parseFlights(const std::string& filename);
 
     /**
-     * Computes the great-circle distance between two airports, as the crow flies.
-     * @param a1 first airport.
-     * @param a2 second airport.
+     * Computes the great-circle distance between two airports joined with a direct flight.
+     * @param a1 first airport
+     * @param a2 second airport
      * @return distance between the two airports, in miles
      */
     double ComputeDistance(const Airport& a1, const Airport& a2) const;
+
+    /**
+     * Computes the distance of the shortest path between two airports, going through recorded flights.
+     * @param a1 first airport
+     * @param a2 second airport
+     * @return distance of the shortest path, in miles
+     */
+    double ComputeShortestPath(const airport& a1, const Airport& a2) const;
 
     FlightGraph graph_;
     std::unordered_map<std::string, Airport> airports_;
