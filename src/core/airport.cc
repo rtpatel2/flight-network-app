@@ -1,6 +1,9 @@
 #include "core/airport.h"
 
 #include <utility>
+
+Airport::Airport() = default;
+
 Airport::Airport(std::string code, double latitude, double longitude):code_(std::move(code)), latitude_(latitude), longitude_(longitude) {
 
 }

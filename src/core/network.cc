@@ -2,7 +2,6 @@
 #include "cinder/gl/gl.h"
 
 #include <utility>
-#include <fstream>
 #include <sstream>
 #include <regex>
 #include <cmath>
@@ -26,6 +25,7 @@ void Network::parseAirports(const std::string &filename) {
             components[4].erase(remove(components[4].begin(), components[4].end(), '\"'), components[4].end());
             Airport a(components[4], std::stod(components[6]), std::stod(components[7]));
             graph_[a] = std::unordered_map<Airport, double>();
+            airports_[a.getCode()] = a;
         }
     }
 }
@@ -45,8 +45,7 @@ void Network::parseFlights(const std::string &filename) {
             components[4].erase(remove(components[4].begin(), components[4].end(), '\"'), components[4].end());
             Airport a(components[2], 0, 0);
             Airport b(components[4], 0, 0);
-            //@TODO implement great circle distance formula
-            graph_[a][b] = 0;
+            graph_[a][b] = ComputeDistance(airports_[a.getCode()], airports_[b.getCode()]);
         }
     }
 }

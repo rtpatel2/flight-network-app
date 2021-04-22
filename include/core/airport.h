@@ -3,6 +3,7 @@
 
 class Airport{
 public:
+    Airport();
     Airport(std::string code, double latitude, double longitude);
     std::string getCode() const;
     double getLatitude() const;
