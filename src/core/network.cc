@@ -1,9 +1,11 @@
 #include "core/network.h"
+#include "cinder/gl/gl.h"
 
 #include <utility>
 #include <fstream>
 #include <sstream>
 #include <regex>
+#include <cmath>
 
 Network::Network(const std::string& airports_filename, const std::string& flights_filename) {
     parseAirports(airports_filename);
@@ -45,8 +47,18 @@ void Network::parseFlights(const std::string &filename) {
             Airport b(components[4], 0, 0);
             //@TODO implement great circle distance formula
             graph_[a][b] = 0;
-
         }
     }
+}
 
+double Network::ComputeDistance(const Airport& a1, const Airport& a2) const {
+    double to_radians = M_PI / 180.0;
+    double lat1 = a1.getLatitude();
+    double long1 = a1.getLongitude();
+    double lat2 = a2.getLatitude();
+    double long2 = a2.getLongitude();
+    double haversine = 0.5 - cos((lat2 - lat1) * to_radians) / 2
+                       + cos(lat1 * to_radians) * cos(lat2 * to_radians) *
+                         (1 - cos((long2 - long1) * to_radians)) / 2;
+    return 2 * R * asin(sqrt(haversine));
 }
