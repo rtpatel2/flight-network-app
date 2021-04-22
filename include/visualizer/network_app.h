@@ -1,6 +1,5 @@
 #pragma once
 
-
 #include <cinder/app/App.h>
 
 namespace visualizer {

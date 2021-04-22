@@ -1,5 +1,3 @@
-#pragma once
-
 #include <visualizer/network_app.h>
 
 #include "core/network.h"
