@@ -3,6 +3,9 @@
 #include <string>
 #include <unordered_map>
 #include "core/airport.h"
+
+typedef std::unordered_map<Airport, std::unordered_map<Airport, double>> FlightGraph;
+
 /**
  * Network class maintains airports and flights between them.
  */
@@ -14,6 +17,8 @@ class Network {
      * @param flights_filename the CSV file containing entries for flights
      */
     Network(const std::string& airports_filename, const std::string& flights_filename);
+
+    const FlightGraph& GetGraph() const;
 
     /** Radius of the earth, in miles. */
     static constexpr double R = 3963.1676;
@@ -39,6 +44,6 @@ class Network {
      */
     double ComputeDistance(const Airport& a1, const Airport& a2) const;
 
-    std::unordered_map<Airport, std::unordered_map<Airport, double>> graph_;
+    FlightGraph graph_;
     std::unordered_map<std::string, Airport> airports_;
 };

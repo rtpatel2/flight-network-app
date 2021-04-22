@@ -11,6 +11,10 @@ Network::Network(const std::string& airports_filename, const std::string& flight
     parseFlights(flights_filename);
 }
 
+const FlightGraph& Network::GetGraph() const {
+    return graph_;
+}
+
 void Network::parseAirports(const std::string &filename) {
     std::ifstream file(filename);
     std::string line;
