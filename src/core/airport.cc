@@ -9,18 +9,21 @@ Airport::Airport(std::string code, double latitude, double longitude):code_(std:
 }
 
 std::string Airport::getCode() const {
-    return code_;
+  return code_;
 }
 
 double Airport::getLatitude() const {
-    return latitude_;
+  return latitude_;
 }
 
 double Airport::getLongitude() const {
-    return longitude_;
+  return longitude_;
 }
 
 bool Airport::operator==(const Airport &rhs) const {
-    return code_==rhs.getCode();
+  return code_ == rhs.code_;
 }
 
+bool Airport::operator<(const Airport& rhs) const {
+  return code_ < rhs.code_;
+}
