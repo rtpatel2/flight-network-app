@@ -1,6 +1,7 @@
 #include <catch2/catch.hpp>
+#include "../include/tictactoe/airport.h"
 
-#include "core/network.h"
+#include "../include/tictactoe/network.h"
 
 Network full_net("airports.txt", "routes.txt");
 Network small_net("airports_small.txt", "routes_small.txt");

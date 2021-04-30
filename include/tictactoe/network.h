@@ -2,7 +2,7 @@
 
 #include <string>
 #include <unordered_map>
-#include "core/airport.h"
+#include "airport.h"
 
 typedef std::unordered_map<Airport, std::unordered_map<Airport, double>> FlightGraph;
 

@@ -1,26 +1,45 @@
-cmake_minimum_required(VERSION 3.12 FATAL_ERROR)
-set(CMAKE_CXX_STANDARD 11)
-project(flight-network)
+cmake_minimum_required(VERSION 3.11...3.16)
+if (${CMAKE_VERSION} VERSION_LESS 3.11)
+    cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
+endif ()
 
+project(FLIGHTS
+        VERSION 1.0
+        DESCRIPTION "Flight network simulator"
+        LANGUAGES CXX)
+
+
+# Optionally set things like CMAKE_CXX_STANDARD, CMAKE_POSITION_INDEPENDENT_CODE here
+
+# In a real CMake application you wouldn't enable a debug
+# build like this, but for our purposes it's just fine.
+#
 # This tells the compiler to not aggressively optimize and
 # to include debugging information so that the debugger
 # can properly read what's going on.
 set(CMAKE_BUILD_TYPE Debug)
-
 # Let's ensure -std=c++xx instead of -std=g++xx
 set(CMAKE_CXX_EXTENSIONS OFF)
-
 # Let's nicely support folders in IDE's
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
 # Warning flags
-if(MSVC)
+if (MSVC)
     # warning level 3 and all warnings as errors
     add_compile_options(/W3 /WX)
 else()
     # lots of warnings and all warnings as errors
     add_compile_options(-Wall -Wpedantic -Werror)
 endif()
+
+# Docs only available if this is the main app
+find_package(Doxygen)
+if(Doxygen_FOUND)
+    add_subdirectory(docs)
+else()
+    message(STATUS "Doxygen not found, not building docs")
+endif()
+
 
 # FetchContent added in CMake 3.11, downloads during the configure step
 include(FetchContent)
@@ -30,51 +49,26 @@ if(${CMAKE_VERSION} VERSION_LESS 3.14)
     include(cmake/add_FetchContent_MakeAvailable.cmake)
 endif()
 
+
+# The compiled library code is here
+add_subdirectory(src)
+
+# The executable code is here
+add_subdirectory(apps)
+
+add_subdirectory(tests)
+
+# Testing library
 FetchContent_Declare(
-        catch2
-        GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+    catch2
+    GIT_REPOSITORY https://github.com/catchorg/Catch2.git
         GIT_TAG v2.x
 )
 
-# Adds Catch2 testing library
+# Adds Catch2::Catch2
 FetchContent_GetProperties(catch2)
 if(NOT catch2_POPULATED)
     FetchContent_Populate(catch2)
-    add_library(catch2 INTERFACE)
-    target_include_directories(catch2 INTERFACE ${catch2_SOURCE_DIR}/single_include)
+    add_subdirectory(${catch2_SOURCE_DIR} ${catch2_BINARY_DIR})
 endif()
 
-get_filename_component(CINDER_PATH "${CMAKE_CURRENT_SOURCE_DIR}/../../" ABSOLUTE)
-get_filename_component(APP_PATH "${CMAKE_CURRENT_SOURCE_DIR}/" ABSOLUTE)
-
-include("${CINDER_PATH}/proj/cmake/modules/cinderMakeApp.cmake")
-
-list(APPEND CORE_SOURCE_FILES src/core/airport.cc src/core/network.cc)
-
-
-list(APPEND SOURCE_FILES    ${CORE_SOURCE_FILES}
-        src/visualizer/network_app.cc)
-
-list(APPEND TEST_FILES tests/test_network.cc)
-
-#add_executable(train-model apps/train_model_main.cc ${CORE_SOURCE_FILES} src/core/naive_bayes_trainer.cc src/core/labeled_image.cc src/core/naive_bayes_predictor.cc)
-#target_include_directories(train-model PRIVATE include)
-
-ci_make_app(
-        APP_NAME        flight-network-simulation
-        CINDER_PATH     ${CINDER_PATH}
-        SOURCES         apps/cinder_app_main.cc ${SOURCE_FILES}
-        INCLUDES        include
-)
-
-ci_make_app(
-        APP_NAME        flight-network-test
-        CINDER_PATH     ${CINDER_PATH}
-        SOURCES         tests/test_main.cc ${SOURCE_FILES} ${TEST_FILES}
-        INCLUDES        include
-        LIBRARIES       catch2
-)
-
-if(MSVC)
-    set_property(TARGET flight-network-test APPEND_STRING PROPERTY LINK_FLAGS " /SUBSYSTEM:CONSOLE")
-endif()

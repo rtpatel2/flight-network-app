@@ -1,12 +1,14 @@
-#include "core/network.h"
-#include "cinder/gl/gl.h"
+#include "../include/tictactoe/network.h"
+
 
 #include <utility>
 #include <sstream>
 #include <regex>
 #include <limits>
-#include <cmath>
 #include <queue>
+#include <iostream>
+#include <fstream>
+#include <cmath>
 
 Network::Network(const std::string& airports_filename, const std::string& flights_filename) {
   parseAirports(airports_filename);
@@ -60,7 +62,7 @@ void Network::parseFlights(const std::string &filename) {
 }
 
 double Network::ComputeDistance(const Airport& a1, const Airport& a2) const {
-  double to_radians = M_PI / 180.0;
+  double to_radians = 3.14159265358979323846 / 180.0;
   double lat1 = a1.getLatitude();
   double long1 = a1.getLongitude();
   double lat2 = a2.getLatitude();
@@ -96,3 +98,4 @@ double Network::ComputeShortestPath(const Airport& a1, const Airport& a2) const 
 
   return distances[a2];
 }
+
