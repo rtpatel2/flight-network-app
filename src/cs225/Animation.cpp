@@ -15,8 +15,8 @@
 #include <iostream>
 #include <sstream>
 #include <string>
-#include "Animation.h"
-#include "cs225/PNG.h"
+#include "../include/cs225/Animation.h"
+#include "../include/cs225/PNG.h"
 
 using namespace std;
 using namespace cs225;

@@ -11,7 +11,7 @@ file(GLOB SOURCE_LIST CONFIGURE_DEPENDS
         "${Cppflight_SOURCE_DIR}/src/*.cpp")
 
 # Make an automatic library - will be static or dynamic based on user setting
-add_library(flight ${SOURCE_LIST} ${HEADER_LIST} airport.cc network.cc)
+add_library(flight ${SOURCE_LIST} ${HEADER_LIST} airport.cc network.cc cs225/Animation.cpp cs225/HSLAPixel.cpp cs225/PNG.cpp cs225/lodepng/lodepng.cpp)
 
 # We need this directory, and users of our library will need it too
 target_include_directories(flight PUBLIC ../include)

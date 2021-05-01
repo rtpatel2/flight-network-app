@@ -14,7 +14,7 @@
 
 #include <string>
 #include <vector>
-#include "cs225/PNG.h"
+#include "PNG.h"
 
 using namespace std;
 using namespace cs225;
