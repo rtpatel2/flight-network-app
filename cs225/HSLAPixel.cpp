@@ -5,7 +5,7 @@
  * @author CS 225: Data Structures
  */
 
-#include "../include/cs225/HSLAPixel.h"
+#include "HSLAPixel.h"
 #include <cmath>
 #include <iostream>
 

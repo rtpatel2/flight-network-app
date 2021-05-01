@@ -1,8 +1,11 @@
 #include <iostream>
 #include <vector>
-#include "readFromFile.hpp"
-
-int main(int argc, const char * argv[]) {
-	std::cout<<"main method compiles!"<<std::endl;
+#include "cs225/HSLAPixel.h"
+#include "cs225/PNG.h"
+#include "cs225/Animation.h"
+int main() {
+	std::cout<<"main has compiled"<<std::endl;
+	Animation a;
+	cs225::HSLAPixel * b = new HSLAPixel();
 	return 0;
 }
