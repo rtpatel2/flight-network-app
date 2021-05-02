@@ -39,7 +39,7 @@ TEST = test
 
 # Add all object files needed for compiling:
 EXE_OBJ = main.o
-OBJS = main.o Point.o FloodFilledImage.o Animation.o
+OBJS = main.o #Point.o FloodFilledImage.o Animation.o
 
 # Object Types
 OBJS = main.o
@@ -67,7 +67,7 @@ $(EXENAME): output_msg $(OBJS)
 # 	$(LD) main.cpp airport.cc network.cc $(LDFLAGS) -o flights
 
 test: #output_msg catch/catchmain.cpp tests/tests.cpp airport.cc network.cc
-	$(LD) catch/catchmain.cpp tests/tests.cpp airport.cc network.cc $(LDFLAGS) -o test
+	$(LD) catch/catchmain.cpp tests/tests.cpp airport.cc network.cc map.cc $(LDFLAGS) -o test
 
 # clean:
 # 	-rm -f *.o $(EXENAME) test
