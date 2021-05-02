@@ -1,16 +1,14 @@
 #pragma once
 
+#include "airport.h"
 #include <string>
 #include <unordered_map>
-#include "airport.h"
 
-typedef std::unordered_map<Airport, std::unordered_map<Airport, double>> FlightGraph;
+typedef std::unordered_map<std::string, std::unordered_map<std::string, double>> FlightGraph;
 
-/**
- * Network class maintains airports and flights between them.
- */
+/** Network class maintains airports and flights between them. */
 class Network {
-public:
+ public:
   /**
    * Constructor takes a CSV filename for airports and flights to parse.
    * @param airports_filename the CSV file containing entries for airports
@@ -18,12 +16,20 @@ public:
    */
   Network(const std::string& airports_filename, const std::string& flights_filename);
 
+  /**
+   * Computes the distance of the shortest path between two airports, going through recorded flights.
+   * @param a1 first airport code
+   * @param a2 second airport code
+   * @return distance of the shortest path, in miles
+   */
+  double ComputeShortestPath(const std::string& a1, const std::string& a2) const;
+
   const FlightGraph& GetGraph() const;
 
   /** Radius of the earth, in miles. */
   static constexpr double R = 3963.1676;
 
-private:
+ private:
   /**
    * Populates graph with airports.
    * @param filename the CSV file with airports.
@@ -38,23 +44,13 @@ private:
 
   /**
    * Computes the great-circle distance between two airports joined with a direct flight.
-   * @param a1 first airport
-   * @param a2 second airport
+   * @param a1 first airport code
+   * @param a2 second airport code
    * @return distance between the two airports, in miles
    */
-  double ComputeDistance(const Airport& a1, const Airport& a2) const;
-
-public:
-  /**
-   * Computes the distance of the shortest path between two airports, going through recorded flights.
-   * @param a1 first airport
-   * @param a2 second airport
-   * @return distance of the shortest path, in miles
-   */
-  double ComputeShortestPath(const Airport& a1, const Airport& a2) const;
+  double ComputeDistance(const std::string& a1, const std::string& a2) const;
 
 private:
-
   FlightGraph graph_;
   std::unordered_map<std::string, Airport> airports_;
 };

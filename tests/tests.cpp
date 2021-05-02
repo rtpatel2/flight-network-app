@@ -26,11 +26,11 @@ TEST_CASE("file reading") {
 
   SECTION("Confirm two flight routes exist from dataset") {
     for (auto it = graph.begin(); it != graph.end(); ++it) {
-      if (it->first.getCode() == "GKA") {
-        REQUIRE(it->second.begin()->first.getCode() == "MAG");
+      if (it->first == "GKA") {
+        REQUIRE(it->second.begin()->first == "MAG");
       }
-      if (it->first.getCode() == "UAK") {
-        REQUIRE(it->second.begin()->first.getCode() == "SFJ");
+      if (it->first == "UAK") {
+        REQUIRE(it->second.begin()->first == "SFJ");
       }
     }
   }
@@ -40,21 +40,15 @@ TEST_CASE("Validate distance computation") {
   FlightGraph graph = full_net.GetGraph();
 
   SECTION("One way flight") {
-    Airport kzn("KZN", 55.606201171875, 49.278701782227);
-    Airport aer("AER", 43.449902, 39.9566);
-    REQUIRE(graph[kzn][aer] == Approx(936.25).epsilon(kEpsilon));
+    REQUIRE(graph["KZN"]["AER"] == Approx(936.25).epsilon(kEpsilon));
   }
 
   SECTION("Two way flight") {
-    Airport lax("LAX", 33.94250107, -118.4079971);
-    Airport syd("SYD", -33.94609832763672, 151.177001953125);
-    REQUIRE(graph[lax][syd] == Approx(7488).epsilon(kEpsilon));
-    REQUIRE(graph[syd][lax] == Approx(7488).epsilon(kEpsilon));
+    REQUIRE(graph["LAX"]["SYD"] == Approx(7488).epsilon(kEpsilon));
+    REQUIRE(graph["SYD"]["LAX"] == Approx(7488).epsilon(kEpsilon));
   }
 
   SECTION("Compute shortest path between two airports") {
-    Airport lax("LAX", 33.94250107, -118.4079971);
-    Airport syd("SYD", -33.94609832763672, 151.177001953125);
-    REQUIRE(small_net.ComputeShortestPath(lax, syd) == Approx(7488).epsilon(kEpsilon));
+    REQUIRE(small_net.ComputeShortestPath("LAX", "SYD") == Approx(7488).epsilon(kEpsilon));
   }
 }
