@@ -21,9 +21,20 @@ class Network {
    * @param a1 starting airport code
    * @return map of airport to distance of shortest paths, in miles
    */
+   //@TODO rename this function
   std::unordered_map<std::string, double> ComputeShortestPath(const std::string& a1) const;
 
+  /**
+   * Finds the best airport for two friends to meet, given their two starting airports.
+   * @param a1 first airport code
+   * @param a2 second airport code
+   * @return airport code of the optimal airport for the friends to meet
+   */
+  std::string FindBestAirport(const std::string& a1, const std::string& a2) const;
+
   const FlightGraph& GetGraph() const;
+
+  const std::unordered_map<std::string, Airport>& GetAirports() const;
 
   /** Radius of the earth, in miles. */
   static constexpr double R = 3963.1676;

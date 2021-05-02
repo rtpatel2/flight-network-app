@@ -38,8 +38,19 @@ std::unordered_map<std::string, double> Network::ComputeShortestPath(const std::
   return distances;
 }
 
+std::string Network::FindBestAirport(const std::string& a1, const std::string& a2) const {
+  std::unordered_map<std::string, double> a1_shortest_paths = ComputeShortestPath(a1);
+  std::unordered_map<std::string, double> a2_shortest_paths = ComputeShortestPath(a2);
+
+  return "";
+}
+
 const FlightGraph& Network::GetGraph() const {
   return graph_;
+}
+
+const std::unordered_map<std::string, Airport>& Network::GetAirports() const {
+  return airports_;
 }
 
 void Network::parseAirports(const std::string& filename) {
