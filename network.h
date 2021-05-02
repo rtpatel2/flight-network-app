@@ -17,12 +17,11 @@ class Network {
   Network(const std::string& airports_filename, const std::string& flights_filename);
 
   /**
-   * Computes the distance of the shortest path between two airports, going through recorded flights.
-   * @param a1 first airport code
-   * @param a2 second airport code
-   * @return distance of the shortest path, in miles
+   * Computes the distance of the shortest path from one airport to all other airports, going through recorded flights.
+   * @param a1 starting airport code
+   * @return map of airport to distance of shortest paths, in miles
    */
-  double ComputeShortestPath(const std::string& a1, const std::string& a2) const;
+  std::unordered_map<std::string, double> ComputeShortestPath(const std::string& a1) const;
 
   const FlightGraph& GetGraph() const;
 

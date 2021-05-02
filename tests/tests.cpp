@@ -49,6 +49,6 @@ TEST_CASE("Validate distance computation") {
   }
 
   SECTION("Compute shortest path between two airports") {
-    REQUIRE(small_net.ComputeShortestPath("LAX", "SYD") == Approx(7488).epsilon(kEpsilon));
+    REQUIRE(small_net.ComputeShortestPath("LAX")["SYD"] == Approx(7488).epsilon(kEpsilon));
   }
 }
