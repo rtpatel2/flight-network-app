@@ -1,6 +1,6 @@
 #include "map.h"
 
-Map::Map(cs225::PNG& map): map(map) {
+Map::Map(PNG& map): map(map) {
 
 }
 
@@ -9,6 +9,6 @@ void Map::addPoint(double lat, double lng) {
     map.getPixel(0,0);
 }
 
-cs225::PNG& Map::getMap() {
+PNG& Map::getMap() {
     return map;
 }

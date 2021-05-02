@@ -15,7 +15,7 @@ LD = clang++
 OBJS_DIR = .objs
 
 # Add standard CS 225 object files
-OBJS += cs225/HSLAPixel.o cs225/PNG.o cs225/lodepng/lodepng.o
+OBJS += cs225/HSLAPixel.o cs225/PNG.o cs225/lodepng/lodepng.o cs225/Animation.o
 
 # -MMD and -MP asks clang++ to generate a .d file listing the headers used in the source code for use in the Make process.
 #   -MMD: "Write a depfile containing user headers"
@@ -48,12 +48,7 @@ $(OBJS_DIR):
 	@mkdir -p $(OBJS_DIR)/cs225/catch
 	@mkdir -p $(OBJS_DIR)/cs225/lodepng
 	@mkdir -p $(OBJS_DIR)/tests
-# mp_traversal specific
-	@mkdir -p $(OBJS_DIR)/imageTraversal
-	@mkdir -p $(OBJS_DIR)/colorPicker
-# mp_mosaic specific
-	@mkdir -p $(OBJS_DIR)/cs225/ColorSpace
-	@mkdir -p $(OBJS_DIR)/util
+
 
 # Rules for compiling source code.
 # - Every object file is required by $(EXE)
@@ -77,6 +72,7 @@ $(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
 # Additional dependencies for object files are included in the clang++
 # generated .d files (from $(DEPFILE_FLAGS)):
 -include $(OBJS_DIR)/*.d
+-include $(OBJS_DIR)/*.cc
 -include $(OBJS_DIR)/cs225/*.d
 -include $(OBJS_DIR)/cs225/catch/*.d
 -include $(OBJS_DIR)/cs225/lodepng/*.d
