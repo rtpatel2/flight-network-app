@@ -1,15 +1,27 @@
 #include <string>
 #include <vector>	
+#include <unordered_map>
 #include "../catch/catch.hpp"
 #include "../airport.h"
 
 #include "../network.h"
+#include "../map.h"
 
 Network full_net("tests/data/airports.txt", "tests/data/routes.txt");
 Network small_net("tests/data/airports_small.txt", "tests/data/routes_small.txt");
 
 static constexpr double kEpsilon = 0.01;
+TEST_CASE("Draw airports") {
+  cs225::PNG png;       png.readFromFile("mercator.png");
+  Map m(png);
+    std::unordered_map<std::string, Airport> airports = full_net.GetAirports();
+    for(auto& it: airports) {
+      m.addPoint(it.second.getLatitude(), it.second.getLongitude());
+    }
+    REQUIRE(!airports.empty());
 
+  m.getMap().writeToFile("airport_map.png");
+}
 TEST_CASE("file reading") {
   //@TODO Implement SECTIONs to validate parsing
   FlightGraph graph = small_net.GetGraph();
