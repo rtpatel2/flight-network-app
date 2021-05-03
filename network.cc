@@ -39,8 +39,8 @@ std::unordered_map<std::string, double> Network::ComputeShortestPaths(const std:
 }
 
 std::string Network::FindBestAirport(const std::string& a1, const std::string& a2, double tolerance) const {
-  std::unordered_map<std::string, double> a1_shortest_paths = ComputeShortestPath(a1);
-  std::unordered_map<std::string, double> a2_shortest_paths = ComputeShortestPath(a2);
+  std::unordered_map<std::string, double> a1_shortest_paths = ComputeShortestPaths(a1);
+  std::unordered_map<std::string, double> a2_shortest_paths = ComputeShortestPaths(a2);
 
   std::string best_airport = "No possible airport! Try a boat instead...";
   double best_dist = std::numeric_limits<double>::max();

@@ -1,8 +1,10 @@
 #include "map.h"
 #include "cs225/HSLAPixel.h"
 #include <cmath>
+#include <queue>
+#include <set>
+#include <iostream>
 typedef std::unordered_map<std::string, std::unordered_map<std::string, double>> FlightGraph;
-
 
 
 Map::Map(cs225::PNG& map): map(map) {
@@ -30,6 +32,38 @@ void Map::AddPoint(double lat, double lng) {
               map.getPixel(i,j) = red;  
         }
     }
+}
+
+
+void Map::Animate(const FlightGraph& graph,  AirportList& airports, const std::string& origin, std::string& filename){
+    Animation animation;
+    std::queue<std::string> queue;
+    std::set<std::string> visited;
+    visited.insert(origin);
+    queue.push(origin);
+    int num = 0;
+    while(!queue.empty()) {
+        std::string curr = queue.front();
+        AddPoint(airports.at(curr).getLatitude(), airports.at(curr).getLongitude());
+        num++;
+        //std::cout<<num<<std::endl;
+        if(num%50==0) {
+            cs225::PNG temp = cs225::PNG(map);
+          animation.addFrame(temp);
+        }
+        //std::cout<<curr<<std::endl;
+        queue.pop();
+
+        for(auto& it: graph.at(curr)) {
+            if(visited.count(it.first)==0) {
+                queue.push(it.first);
+
+                visited.insert(it.first);
+            }
+        }
+
+    }
+    animation.write(filename);
 }
 
 cs225::PNG& Map::GetMap() {

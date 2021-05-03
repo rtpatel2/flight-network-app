@@ -19,9 +19,9 @@ TEST_CASE("Draw airports") {
       m.AddPoint(it.second.getLatitude(), it.second.getLongitude());
     }
     REQUIRE(!airports.empty());
-
   m.GetMap().writeToFile("airport_map.png");
 }
+
 TEST_CASE("file reading") {
   //@TODO Implement SECTIONs to validate parsing
   FlightGraph graph = small_net.GetGraph();
