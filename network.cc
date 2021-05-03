@@ -15,24 +15,38 @@ Network::Network(const std::string& airports_filename, const std::string& flight
 }
 
 std::unordered_map<std::string, double> Network::ComputeShortestPaths(const std::string& a1) const {
+  //@TODO make this more efficient manik and rishi
   std::priority_queue<std::pair<double, std::string>> queue;
   std::unordered_map<std::string, double> distances;
+  // std::priority_queue<std::pair<double, int>> queue;
+  // std::unordered_map<int, double> distances;
+  // std::vector<std::string> airport_codes;
+  // std::unordered_map<std::string, int> map;
 
-  for (const auto& it : airports_) distances[it.first] = std::numeric_limits<double>::max();
+  // size_t c = 0;
+  for (const auto& it : airports_) {
+  //   airport_codes.push_back(it.first);
+  //   map[it.first] = c;
+  //   ++c;
+    distances[it.first] = std::numeric_limits<double>::max();
+  }
+  
 
   queue.emplace(0, a1);
+  // distances[a1] = 0;
 
   while (!queue.empty()) {
     std::pair<double, std::string> element = queue.top(); queue.pop();
     double current_distance = element.first;
     std::string current_airport = element.second;
 
-    if (current_distance < distances[current_airport]) {
-      distances[current_airport] = current_distance;
-      for (auto& it : graph_.at(current_airport)) {
-        if (current_distance + it.second < distances[it.first]) queue.emplace(current_distance + it.second, it.first);
+    for (auto& it : graph_.at(current_airport)) {
+      if (current_distance + it.second < distances[it.first]) {
+        queue.emplace(current_distance + it.second, it.first);
+        distances[it.first] = current_distance + it.second;
       }
     }
+   
   }
 
   return distances;
