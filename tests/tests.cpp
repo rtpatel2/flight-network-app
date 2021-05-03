@@ -16,11 +16,11 @@ TEST_CASE("Draw airports") {
   Map m(png);
     std::unordered_map<std::string, Airport> airports = full_net.GetAirports();
     for(auto& it: airports) {
-      m.addPoint(it.second.getLatitude(), it.second.getLongitude());
+      m.AddPoint(it.second.getLatitude(), it.second.getLongitude());
     }
     REQUIRE(!airports.empty());
 
-  m.getMap().writeToFile("airport_map.png");
+  m.GetMap().writeToFile("airport_map.png");
 }
 TEST_CASE("file reading") {
   //@TODO Implement SECTIONs to validate parsing

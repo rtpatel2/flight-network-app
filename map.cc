@@ -1,14 +1,15 @@
 #include "map.h"
 #include "cs225/HSLAPixel.h"
 #include <cmath>
+typedef std::unordered_map<std::string, std::unordered_map<std::string, double>> FlightGraph;
 
 
 
-Map::Map(PNG& map): map(map) {
+Map::Map(cs225::PNG& map): map(map) {
 
 }
 
-void Map::addPoint(double lat, double lng) {
+void Map::AddPoint(double lat, double lng) {
     //formula derived from:
     //https://stackoverflow.com/questions/14329691/convert-latitude-longitude-point-to-a-pixels-x-y-on-mercator-projection
     double width = map.width();
@@ -20,7 +21,7 @@ void Map::addPoint(double lat, double lng) {
         double mercN = std::log(std::tan(M_PI/4+latRad/2));
 
     double y = height/2 - (width*mercN/(2*M_PI));
-    HSLAPixel red(0,1,0.5,1);
+    cs225::HSLAPixel red(0,1,0.5,1);
 
 
      //y = (y-450)*1.5+450;
@@ -29,9 +30,8 @@ void Map::addPoint(double lat, double lng) {
               map.getPixel(i,j) = red;  
         }
     }
-
 }
 
-PNG& Map::getMap() {
+cs225::PNG& Map::GetMap() {
     return map;
 }

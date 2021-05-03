@@ -1,11 +1,13 @@
 #pragma once
 #include "cs225/PNG.h"
-using namespace cs225;
+#include "network.h"
+
 class Map {
     public:
-        Map(PNG& map);
-        void addPoint(double lat, double lng);
-        PNG& getMap();
+        Map(cs225::PNG& map);
+        void AddPoint(double lat, double lng);
+        cs225::PNG& GetMap();
+
     private:
-        PNG map;
+        cs225::PNG map;
 };
