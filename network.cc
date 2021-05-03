@@ -14,7 +14,7 @@ Network::Network(const std::string& airports_filename, const std::string& flight
   parseFlights(flights_filename);
 }
 
-std::unordered_map<std::string, double> Network::ComputeShortestPath(const std::string& a1) const {
+std::unordered_map<std::string, double> Network::ComputeShortestPaths(const std::string& a1) const {
   std::priority_queue<std::pair<double, std::string>> queue;
   std::unordered_map<std::string, double> distances;
 
@@ -38,11 +38,27 @@ std::unordered_map<std::string, double> Network::ComputeShortestPath(const std::
   return distances;
 }
 
-std::string Network::FindBestAirport(const std::string& a1, const std::string& a2) const {
+std::string Network::FindBestAirport(const std::string& a1, const std::string& a2, double tolerance) const {
   std::unordered_map<std::string, double> a1_shortest_paths = ComputeShortestPath(a1);
   std::unordered_map<std::string, double> a2_shortest_paths = ComputeShortestPath(a2);
 
-  return "";
+  std::string best_airport = "No possible airport! Try a boat instead...";
+  double best_dist = std::numeric_limits<double>::max();
+  
+  for (auto& it : a1_shortest_paths) {
+    double a1_dist = it.second;
+    double a2_dist = a2_shortest_paths[it.first];
+    if (a1_dist < tolerance * (a1_dist + a2_dist) || a2_dist < tolerance * (a1_dist + a2_dist)) {
+      continue;
+    }
+
+    if (a1_dist + a2_dist < best_dist) {
+      best_dist = a1_dist + a2_dist;
+      best_airport = it.first;
+    }
+  }
+
+  return best_airport;
 }
 
 const FlightGraph& Network::GetGraph() const {
