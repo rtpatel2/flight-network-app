@@ -48,7 +48,7 @@ TEST_CASE("file reading") {
   }
 }
 
-TEST_CASE("Validate distance computation") {
+TEST_CASE("test_ComputeDistance") {
   FlightGraph graph = full_net.GetGraph();
 
   SECTION("One way flight") {
@@ -59,12 +59,37 @@ TEST_CASE("Validate distance computation") {
     REQUIRE(graph["LAX"]["SYD"] == Approx(7488).epsilon(kEpsilon));
     REQUIRE(graph["SYD"]["LAX"] == Approx(7488).epsilon(kEpsilon));
   }
+}
 
-  SECTION("Compute shortest path between two airports") {
+TEST_CASE("test_ComputeShortestPaths") {
+  SECTION("Shortest path with direct flight") {
     REQUIRE(full_net.ComputeShortestPaths("LAX")["SYD"] == Approx(7488).epsilon(kEpsilon));
   }
-
-  SECTION("Validate finding the best airport for two friends to meet") {
-    REQUIRE(full_net.FindBestAirport("LAX", "JFK", 0.25) == "IND");
+  
+  SECTION("Shortest path with one layover") {
+    REQUIRE(full_net.ComputeShortestPaths("LGA")["SFO"] == Approx(2573).epsilon(kEpsilon));
   }
+}
+
+TEST_CASE("test_FindBestAirport") {
+  SECTION("Best airport within the US") {
+    REQUIRE(full_net.FindBestAirport("LAX", "JFK", 0.35) == "MCI");
+  }
+
+  SECTION("Best airport across Europe") {
+    REQUIRE(full_net.FindBestAirport("CDG", "VVO", 0.45) == "TJM");
+  }
+
+  SECTION("Best airport across the world") {
+    REQUIRE(full_net.FindBestAirport("NRT", "LAX", 0.25) == "HNL");
+  }
+
+  SECTION("Tolerance too high") {
+    REQUIRE(full_net.FindBestAirport("JFK", "DFW", 0.5) == "No possible airport! Try a boat instead...");
+  }
+
+  SECTION("No possible way to connect via flights") {
+    REQUIRE(small_net.FindBestAirport("GKA", "UAK", 0) == "No possible airport! Try a boat instead...");
+  }
+
 }
