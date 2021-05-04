@@ -15,41 +15,41 @@ Network::Network(const std::string& airports_filename, const std::string& flight
 }
 
 std::unordered_map<std::string, double> Network::ComputeShortestPaths(const std::string& a1) const {
-  //@TODO make this more efficient manik and rishi
-  std::priority_queue<std::pair<double, std::string>> queue;
-  std::unordered_map<std::string, double> distances;
-  // std::priority_queue<std::pair<double, int>> queue;
-  // std::unordered_map<int, double> distances;
-  // std::vector<std::string> airport_codes;
-  // std::unordered_map<std::string, int> map;
+  std::priority_queue<std::pair<double, int>> queue;
+  std::unordered_map<int, double> distances;
+  std::vector<std::string> airport_codes;
+  std::unordered_map<std::string, int> map;
 
-  // size_t c = 0;
+  size_t c = 0;
   for (const auto& it : airports_) {
-  //   airport_codes.push_back(it.first);
-  //   map[it.first] = c;
-  //   ++c;
-    distances[it.first] = std::numeric_limits<double>::max();
+    airport_codes.push_back(it.first);
+    map[it.first] = c;
+    ++c;
+    distances[map[it.first]] = std::numeric_limits<double>::max();
   }
   
-
-  queue.emplace(0, a1);
-  // distances[a1] = 0;
+  queue.emplace(0, map[a1]);
+  distances[map[a1]] = 0;
 
   while (!queue.empty()) {
-    std::pair<double, std::string> element = queue.top(); queue.pop();
+    std::pair<double, int> element = queue.top(); queue.pop();
     double current_distance = element.first;
-    std::string current_airport = element.second;
+    int current_idx = element.second;
 
-    for (auto& it : graph_.at(current_airport)) {
-      if (current_distance + it.second < distances[it.first]) {
-        queue.emplace(current_distance + it.second, it.first);
-        distances[it.first] = current_distance + it.second;
+    for (auto& it : graph_.at(airport_codes[current_idx])) {
+      if (current_distance + it.second < distances[map[it.first]]) {
+        queue.emplace(current_distance + it.second, map[it.first]);
+        distances[map[it.first]] = current_distance + it.second;
       }
     }
    
   }
 
-  return distances;
+  std::unordered_map<std::string, double> dists;
+  for (auto& it : distances) {
+    dists[airport_codes[it.first]] = it.second;
+  }
+  return dists;
 }
 
 std::string Network::FindBestAirport(const std::string& a1, const std::string& a2, double tolerance) const {
