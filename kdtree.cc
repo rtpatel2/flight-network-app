@@ -16,8 +16,7 @@ bool KDTree::smallerDimVal(double firstLat, double secondLat, double firstLong, 
     if (curDim) {
       // return true if second is more west than first
       double goingeast = abs(secondLong - firstLong);
-      double goingwest = abs(firstLong - secondLong);
-      return goingwest < goingeast;
+      return goingeast >= 180;
     } else {
       return (firstLat < secondLat);
     }
