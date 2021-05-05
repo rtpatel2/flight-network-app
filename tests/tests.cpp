@@ -107,8 +107,8 @@ TEST_CASE("test_FindNearestNeighbors") {
     Airport rishi("Rishi", 40.560806, -74.465591);
     REQUIRE(kd.findNearestNeighbor(rishi).getCode() == "LDJ");
 
-    // Airport shru("Shru", 37.289498, -121.796731);
-    // REQUIRE(kd.findNearestNeighbor(shru).getCode() == "RHV");
+    Airport shru("Shru", 37.289498, -121.796731);
+    REQUIRE(kd.findNearestNeighbor(shru).getCode() == "RHV");
 
     Airport ravyu("Ravyu", 1.359758, 103.883477);
     REQUIRE(kd.findNearestNeighbor(ravyu).getCode() == "QPG");

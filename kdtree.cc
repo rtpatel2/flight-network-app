@@ -13,9 +13,12 @@ using namespace std;
 
 bool KDTree::smallerDimVal(const Airport& first,
                                 const Airport& second, int curDim) const
-{
+{ // west and south go left on tree
     if (curDim) {
-      return (first.getLongitude() < second.getLongitude());
+      // return true if second is more west than first
+      double goingeast = abs(second.getLongitude() - first.getLongitude());
+      double goingwest = abs(first.getLongitude() - second.getLongitude());
+      return goingwest < goingeast;
     } else {
       return (first.getLatitude() < second.getLatitude());
     }
@@ -26,7 +29,7 @@ bool KDTree::shouldReplace(const Airport& target,
                                 const Airport& potential) const
 {
     double currentBestDist = ComputeDistance(target.getLatitude(), currentBest.getLatitude(), target.getLongitude(), currentBest.getLongitude());
-    double potentialDist = ComputeDistance(target.getLatitude(), potential.getLatitude(), target.getLongitude(), currentBest.getLongitude());
+    double potentialDist = ComputeDistance(target.getLatitude(), potential.getLatitude(), target.getLongitude(), potential.getLongitude());
 
     return (potentialDist < currentBestDist);
 }
@@ -155,9 +158,9 @@ Airport KDTree::findNearestHelper(KDTreeNode* sroot, const Airport& target, Airp
 
   double splitDist = 0.0;
   if (dimension) {
-    splitDist = ComputeDistance(0, 0, target.getLongitude(), currBest.getLongitude());
+    splitDist = ComputeDistance(currBest.getLatitude(), currBest.getLatitude(), target.getLongitude(), currBest.getLongitude());
   } else {
-    splitDist = ComputeDistance(target.getLatitude(), currBest.getLatitude(), 0, 0);
+    splitDist = ComputeDistance(target.getLatitude(), currBest.getLatitude(), currBest.getLongitude(), currBest.getLongitude());
   }
   
   if (radius >= splitDist) {
