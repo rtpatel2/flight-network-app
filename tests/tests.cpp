@@ -7,11 +7,13 @@
 
 #include "../network.h"
 #include "../map.h"
+#include "../kdtree.h"
 
 Network full_net("tests/data/airports.txt", "tests/data/routes.txt");
 Network small_net("tests/data/airports_small.txt", "tests/data/routes_small.txt");
 
 static constexpr double kEpsilon = 0.01;
+
 TEST_CASE("Draw airports") {
   cs225::PNG png;       png.readFromFile("mercator.png");
   Map m(png);
@@ -94,10 +96,24 @@ TEST_CASE("test_FindBestAirport") {
   }
 }
 
-TEST_CASE("test FindNearestNeighbors") {
-  std::unordered_map<std::string, Airport> map = small_net.GetAirports();
+TEST_CASE("test_FindNearestNeighbors") {
+  std::vector<Airport> airports;
+  for (auto& it : full_net.GetAirports()) {
+    airports.push_back(it.second);
+  }
+  KDTree kd(airports);
 
-  SECTION("basic") {
+  SECTION("Basic tests") {
+    Airport rishi("Rishi", 40.560806, -74.465591);
+    REQUIRE(kd.findNearestNeighbor(rishi).getCode() == "LDJ");
 
+    // Airport shru("Shru", 37.289498, -121.796731);
+    // REQUIRE(kd.findNearestNeighbor(shru).getCode() == "RHV");
+
+    Airport ravyu("Ravyu", 1.359758, 103.883477);
+    REQUIRE(kd.findNearestNeighbor(ravyu).getCode() == "QPG");
+
+    Airport jeremy("Jeremy", 42.143537, -87.867137);
+    REQUIRE(kd.findNearestNeighbor(jeremy).getCode() == "PWK");
   }
 }

@@ -97,6 +97,9 @@ void Network::parseAirports(const std::string& filename) {
 
     if (components.size() == 14) {
       components[4].erase(remove(components[4].begin(), components[4].end(), '\"'), components[4].end());
+      if (components[4].size() != 3) {
+        continue;
+      }
       Airport a(components[4], std::stod(components[6]), std::stod(components[7]));
       graph_[a.getCode()] = std::unordered_map<std::string, double>();
       airports_[a.getCode()] = a;
