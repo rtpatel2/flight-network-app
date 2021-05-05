@@ -104,7 +104,7 @@ TEST_CASE("test_FindNearestNeighbors") {
   KDTree kd(airports);
 
   SECTION("Basic tests") {
-    Airport a1("a2", 37.289498, -121.796731);
+    Airport a2("a2", 37.289498, -121.796731);
     REQUIRE(kd.findNearestNeighbor(a2).getCode() == "RHV");
 
     Airport a3("a3", 1.359758, 103.883477);
