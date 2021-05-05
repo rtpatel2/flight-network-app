@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>	
 #include <unordered_map>
+#include <utility>
 #include "../catch/catch.hpp"
 #include "../airport.h"
 
@@ -91,5 +92,12 @@ TEST_CASE("test_FindBestAirport") {
   SECTION("No possible way to connect via flights") {
     REQUIRE(small_net.FindBestAirport("GKA", "UAK", 0) == "No possible airport! Try a boat instead...");
   }
+}
 
+TEST_CASE("test FindNearestNeighbors") {
+  std::unordered_map<std::string, Airport> map = small_net.GetAirports();
+
+  SECTION("basic") {
+
+  }
 }
