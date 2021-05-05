@@ -67,7 +67,7 @@ $(EXENAME): output_msg $(OBJS)
 # 	$(LD) main.cpp airport.cc network.cc $(LDFLAGS) -o flights
 
 test: #output_msg catch/catchmain.cpp tests/tests.cpp airport.cc network.cc
-	$(LD) catch/catchmain.cpp tests/tests.cpp airport.cc network.cc map.cc cs225/*.cpp cs225/lodepng/lodepng.cpp $(LDFLAGS) -o test
+	$(LD) catch/catchmain.cpp tests/tests.cpp airport.cc network.cc map.cc cs225/*.cpp cs225/lodepng/lodepng.cpp kdtree.cc $(LDFLAGS) -o test
 
 # clean:
 # 	-rm -f *.o $(EXENAME) test
