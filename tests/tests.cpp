@@ -104,18 +104,12 @@ TEST_CASE("test_FindNearestNeighbors") {
   KDTree kd(airports);
 
   SECTION("Basic tests") {
-    Airport a2("a2", 37.289498, -121.796731);
-    REQUIRE(kd.findNearestNeighbor(a2).getCode() == "RHV");
-
-    Airport a3("a3", 1.359758, 103.883477);
-    REQUIRE(kd.findNearestNeighbor(a3).getCode() == "QPG");
-
-    Airport a4("a4", 42.143537, -87.867137);
-    REQUIRE(kd.findNearestNeighbor(a4).getCode() == "PWK");
+    REQUIRE(kd.findNearestNeighbor( 37.289498, -121.796731).getCode() == "RHV");
+    REQUIRE(kd.findNearestNeighbor(1.359758, 103.883477).getCode() == "QPG");
+    REQUIRE(kd.findNearestNeighbor(42.143537, -87.867137).getCode() == "PWK");
   }
 
   SECTION("Fence jumping") {
-    Airport a1("a1", 40.560806, -74.465591);
-    REQUIRE(kd.findNearestNeighbor(a1).getCode() == "LDJ");
+    REQUIRE(kd.findNearestNeighbor(40.560806, -74.465591).getCode() == "LDJ");
   }
 }

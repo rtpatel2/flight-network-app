@@ -11,25 +11,23 @@
 
 using namespace std;
 
-bool KDTree::smallerDimVal(const Airport& first,
-                                const Airport& second, int curDim) const
+bool KDTree::smallerDimVal(double firstLat, double secondLat, double firstLong, double secondLong, int curDim) const
 { // west and south go left on tree
     if (curDim) {
       // return true if second is more west than first
-      double goingeast = abs(second.getLongitude() - first.getLongitude());
-      double goingwest = abs(first.getLongitude() - second.getLongitude());
+      double goingeast = abs(secondLong - firstLong);
+      double goingwest = abs(firstLong - secondLong);
       return goingwest < goingeast;
     } else {
-      return (first.getLatitude() < second.getLatitude());
+      return (firstLat < secondLat);
     }
 }
 
-bool KDTree::shouldReplace(const Airport& target,
-                                const Airport& currentBest,
-                                const Airport& potential) const
+bool KDTree::shouldReplace(double targetLat, double currBestLat, double potentialLat, 
+                           double targetLong, double currBestLong, double potentialLong) const
 {
-    double currentBestDist = ComputeDistance(target.getLatitude(), currentBest.getLatitude(), target.getLongitude(), currentBest.getLongitude());
-    double potentialDist = ComputeDistance(target.getLatitude(), potential.getLatitude(), target.getLongitude(), potential.getLongitude());
+    double currentBestDist = ComputeDistance(targetLat, currBestLat, targetLong, currBestLong);
+    double potentialDist = ComputeDistance(targetLat, potentialLat, targetLong, potentialLong);
 
     return (potentialDist < currentBestDist);
 }
@@ -67,7 +65,7 @@ int KDTree::partition(int left, int right, int pivotIndex, int dimension) {
   swap(pivotIndex, right);
   int storeIndex = left;
   for (int i = left; i < right; ++i) {
-    if (smallerDimVal(list[i], pivotValue, dimension)) {
+    if (smallerDimVal(list[i].getLatitude(), pivotValue.getLatitude(), list[i].getLongitude(), pivotValue.getLongitude(), dimension)) {
       swap(storeIndex, i);
       ++storeIndex;
     }
@@ -126,55 +124,55 @@ void KDTree::clear(KDTreeNode* sroot) {
 	sroot = nullptr;
 }
 
-Airport KDTree::findNearestNeighbor(const Airport& query) const
+Airport KDTree::findNearestNeighbor(double targetLat, double targetLong) const
 {
-  return findNearestHelper(root, query, root->airport, 0);
+  return findNearestHelper(root, targetLat, targetLong, root->airport, 0);
 }
 
-Airport KDTree::findNearestHelper(KDTreeNode* sroot, const Airport& target, Airport currBest, int dimension) const {
+Airport KDTree::findNearestHelper(KDTreeNode* sroot, double targetLat, double targetLong, Airport currBest, int dimension) const {
   if (!sroot->left && !sroot->right) {
     return sroot->airport;
   }
 
   // Find initial currBest logic
   bool searchDirection = true;
-  if (smallerDimVal(target, sroot->airport, dimension)) {
+  if (smallerDimVal(targetLat, sroot->airport.getLatitude(), targetLong, sroot->airport.getLongitude(), dimension)) {
     if (sroot->left) {
-      currBest = findNearestHelper(sroot->left, target, currBest, (dimension + 1) % Dim);
+      currBest = findNearestHelper(sroot->left, targetLat, targetLong, currBest, (dimension + 1) % Dim);
     }
   } else {
     if (sroot->right) {
-      currBest = findNearestHelper(sroot->right, target, currBest, (dimension + 1) % Dim);
+      currBest = findNearestHelper(sroot->right, targetLat, targetLong, currBest, (dimension + 1) % Dim);
     }
     searchDirection = false;
   }
 
   // Backtraversal Logic based on pseudo-code
-  if (shouldReplace(target, currBest, sroot->airport)) {
+  if (shouldReplace(targetLat, currBest.getLatitude(), sroot->airport.getLatitude(), targetLong, currBest.getLongitude(), sroot->airport.getLongitude())) {
     currBest = sroot->airport;
   }
 
-  double radius = ComputeDistance(target.getLatitude(), currBest.getLatitude(), target.getLongitude(), currBest.getLongitude());
+  double radius = ComputeDistance(targetLat, currBest.getLatitude(), targetLong, currBest.getLongitude());
 
   double splitDist = 0.0;
   if (dimension) {
-    splitDist = ComputeDistance(currBest.getLatitude(), currBest.getLatitude(), target.getLongitude(), currBest.getLongitude());
+    splitDist = ComputeDistance(currBest.getLatitude(), currBest.getLatitude(), targetLong, currBest.getLongitude());
   } else {
-    splitDist = ComputeDistance(target.getLatitude(), currBest.getLatitude(), currBest.getLongitude(), currBest.getLongitude());
+    splitDist = ComputeDistance(targetLat, currBest.getLatitude(), currBest.getLongitude(), currBest.getLongitude());
   }
   
   if (radius >= splitDist) {
     if (searchDirection) {
       if (sroot->right) {
-        Airport newPoint = findNearestHelper(sroot->right, target, currBest, (dimension + 1) % Dim);
-        if (shouldReplace(target, currBest, newPoint)) {
+        Airport newPoint = findNearestHelper(sroot->right, targetLat, targetLong, currBest, (dimension + 1) % Dim);
+        if (shouldReplace(targetLat, currBest.getLatitude(), newPoint.getLatitude(), targetLong, currBest.getLongitude(), newPoint.getLongitude())) {
           currBest = newPoint;
         }
       }
     } else {
       if (sroot->left) {
-        Airport newPoint = findNearestHelper(sroot->left, target, currBest, (dimension + 1) % Dim);
-        if (shouldReplace(target, currBest, newPoint)) {
+        Airport newPoint = findNearestHelper(sroot->left, targetLat, targetLong, currBest,(dimension + 1) % Dim);
+        if (shouldReplace(targetLat, currBest.getLatitude(), newPoint.getLatitude(), targetLong, currBest.getLongitude(), newPoint.getLongitude())) {
           currBest = newPoint;
         }
       }

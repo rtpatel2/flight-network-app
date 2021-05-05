@@ -33,27 +33,31 @@ class KDTree
 
   public:
     /**
-     * Determines if an Airport A is smaller than Airport B in a given dimension, curDim.
-     * @param first First Airport to compare.
-     * @param second Second Airport to compare.
+     * Determines if an Airport A is smaller than Airport B with given coordinates in a given dimension, curDim.
+     * @param firstLat First Airport's latitude coordinate to compare.
+     * @param secondLat Second Airport's latitude coordinate to compare.
+     * @param firstLong First Airport's longitude coordinate to compare.
+     * @param secondLong Second Airport's longitude coordinate to compare.
      * @param curDim The dimension these points are being compared in.
      * @return A boolean value indicating whether the first Airport is smaller
      *  than the second Airport in the curDim dimension.
      */
-    bool smallerDimVal(const Airport& first, const Airport& second,
+    bool smallerDimVal(double firstLat, double secondLat, double firstLong, double secondLong, 
                        int curDim) const;
 
     /**
      * Determines if an Airport (currentBest) is closer to the target Airport than another
      * reference (potential) Airport.
-     * @param target The target Airport we want to be close to.
-     * @param currentBest The closest Airport to target.
-     * @param potential The candidate airport to replace currentBest.
+     * @param targetLat Target Airport's latitude coordinate to compare.
+     * @param currBestLat currBest Airport's latitude coordinate to compare.
+     * @param potentialLat Potential Airport's latitude coordinate to compare.
+     * @param targetLong Target Airport's longitude coordinate to compare.
+     * @param currBestLong currBest Airport's longitude coordinate to compare.
+     * @param potentialLong Potential Airport's longitude coordinate to compare.
      * @return A boolean value indicating whether potential is closer
      *  to target than currentBest.
      */
-    bool shouldReplace(const Airport& target, const Airport& currentBest,
-                       const Airport& potential) const;
+    bool shouldReplace(double targetLat, double currBestLat, double potentialLat, double targetLong, double currBestLong, double potentialLong) const;
 
     /**
      * Constructs a KDTree from a vector of Airports, each having dimension Dim.
@@ -84,11 +88,11 @@ class KDTree
 
     /**
      * Finds the closest point to the parameter Airport in the KDTree.
-     * @param query The point we wish to find the closest neighbor to in the
-     *  tree.
+     * @param targetLat Target Airport's latitude coordinate to compare against.
+     * @param targetLong Target Airport's longitude coordinate to compare against.
      * @return The closest point to a in the KDTree.
      */
-    Airport findNearestNeighbor(const Airport& query) const;
+    Airport findNearestNeighbor(double targetLat, double targetLong) const;
 
   private:
     /** Standardized dimension value, latitude and longitude */
@@ -129,7 +133,7 @@ class KDTree
     /**
      * Official helper method for findNearestNeighbor.
      */
-    Airport findNearestHelper(KDTreeNode* sroot, const Airport& target, Airport currBest, int dimension) const;
+    Airport findNearestHelper(KDTreeNode* sroot, double targetLat, double targetLong, Airport currBest, int dimension) const;
 
     /**
      * Computes the great-circle distance between two airports using their 
