@@ -11,6 +11,7 @@ class Map {
         void AddPoint(double lat, double lng);
         cs225::PNG& GetMap();
         void Animate(const FlightGraph& graph, AirportList& airports, const std::string& origin, std::string& filename);
+        std::pair<double, double> ProjectMercator(double lat, double lng);
 
     private:
         cs225::PNG map;
