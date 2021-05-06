@@ -8,9 +8,9 @@ typedef const std::unordered_map<std::string, Airport> AirportList;
 class Map {
     public:
         Map(cs225::PNG& map);
-        void AddPoint(double lat, double lng);
+        void AddPoint(double lat, double lng, double luminance);
         cs225::PNG& GetMap();
-        void Animate(const FlightGraph& graph, AirportList& airports, const std::string& origin, std::string& filename);
+        void Animate(const FlightGraph& graph,  AirportList& airports, const std::string& origin, const std::string& gif_filename, const std::string& png_filename);
         std::pair<double, double> ProjectMercator(double lat, double lng);
 
     private:

@@ -32,7 +32,7 @@ int main() {
 	Map m2(png);
 	std::string file = "bfs.gif";
 	// m2.Animate(full_net.GetGraph(), full_net.GetAirports(), "ZMH", file);	
-	m2.Animate(full_net.GetGraph(), full_net.GetAirports(), "ORD", file);		
+	m2.Animate(full_net.GetGraph(), full_net.GetAirports(), "ORD", file, "last_frame_bfs.png");		
 
 	return 0;
 }

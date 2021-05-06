@@ -28,28 +28,30 @@ std::pair<double, double> Map::ProjectMercator(double lat, double lng) {
     return std::make_pair(x, y);
 }
 
-void Map::AddPoint(double lat, double lng) {
+void Map::AddPoint(double lat, double lng, double luminance) {
     std::pair<double, double> projection = ProjectMercator(lat, lng);
 
     double x = projection.first;
     double y = projection.second;
 
-    cs225::HSLAPixel red(0,1,0.5,1);
+    // cs225::HSLAPixel pixel_color(0, 1, 0.5, 1);
+    cs225::HSLAPixel pixel_color(265, 1, luminance, 1);
 
     for(int i = std::max(0, (int) x - 1); i < std::min((int) map.width(), (int) x + 1); i++) {
         for(int j = std::max(0, (int) y - 1); j < std::min((int) map.height(), (int) y + 1); j++) {
-              map.getPixel(i,j) = red;  
+              map.getPixel(i,j) = pixel_color;  
         }
     }
 }
 
 
-void Map::Animate(const FlightGraph& graph,  AirportList& airports, const std::string& origin, std::string& filename){
+void Map::Animate(const FlightGraph& graph,  AirportList& airports, const std::string& origin, const std::string& gif_filename, const std::string& png_filename){
     Animation animation;
     cs225::PNG temp = cs225::PNG(map);
     animation.addFrame(temp);
 
     int last_seen_degree = -1;
+    double current_lum = 0;
 
     std::queue<std::pair<std::string, int>> queue;
     std::set<std::string> visited;
@@ -60,7 +62,7 @@ void Map::Animate(const FlightGraph& graph,  AirportList& airports, const std::s
         std::string curr = queue.front().first;
         int curr_degree = queue.front().second;
 
-        AddPoint(airports.at(curr).getLatitude(), airports.at(curr).getLongitude());
+        AddPoint(airports.at(curr).getLatitude(), airports.at(curr).getLongitude(), fmin(0.25 + (last_seen_degree + 1) * 0.15, 1.0));
 
         if(curr_degree != last_seen_degree) {
             last_seen_degree = curr_degree;
@@ -73,7 +75,6 @@ void Map::Animate(const FlightGraph& graph,  AirportList& airports, const std::s
         for(auto& it: graph.at(curr)) {
             if(visited.count(it.first)==0) {
                 queue.emplace(it.first, curr_degree + 1);
-
                 visited.insert(it.first);
             }
         }
@@ -110,7 +111,11 @@ void Map::Animate(const FlightGraph& graph,  AirportList& airports, const std::s
     //     }
 
     // }
-    animation.write(filename);
+
+    animation.write(gif_filename);
+
+    cs225::PNG lastFrame = animation.getFrame(animation.frameCount() - 1);
+ 	lastFrame.writeToFile(png_filename);
 }
 
 cs225::PNG& Map::GetMap() {
