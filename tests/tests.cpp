@@ -4,7 +4,7 @@
 #include <utility>
 #include "../catch/catch.hpp"
 #include "../airport.h"
-
+#include "../cs225/PNG.h"
 #include "../network.h"
 #include "../map.h"
 #include "../kdtree.h"
@@ -115,3 +115,27 @@ TEST_CASE("test_FindNearestNeighbors") {
     REQUIRE(kd.findNearestNeighbor(40.560806, -74.465591).getCode() == "LDJ");
   }
 }
+
+TEST_CASE("Test Project Mercator") {
+  cs225::PNG png; png.readFromFile("tests/data/mercator.png");
+  Map test_map(png);
+
+  std::pair<double, double> projection = test_map.ProjectMercator(-6.081689834590001, 145.391998291);
+
+  REQUIRE(Approx(projection.first).epsilon(kEpsilon) == 1084.64);
+  REQUIRE(Approx(projection.second).epsilon(kEpsilon) == 620.31);
+}
+
+TEST_CASE("Test Add Point") {
+  cs225::PNG png; png.readFromFile("tests/data/mercator.png");
+  Map test_map(png);
+
+  test_map.AddPoint(-6.081689834590001, 145.391998291, 0.5);
+
+  REQUIRE(test_map.GetMap().getPixel(1083, 619).h == 265);
+  REQUIRE(test_map.GetMap().getPixel(1083, 619).s == 1);
+  REQUIRE(test_map.GetMap().getPixel(1083, 619).l == 0.5);
+  REQUIRE(test_map.GetMap().getPixel(1083, 619).a == 1);
+
+}
+
