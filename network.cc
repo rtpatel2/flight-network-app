@@ -75,6 +75,10 @@ std::string Network::FindBestAirport(const std::string& a1, const std::string& a
   return best_airport;
 }
 
+std::string Network::FindClosestAirport(double lat, double lng) {
+  return kd_.findNearestNeighbor(lat, lng).getCode();
+}
+
 const FlightGraph& Network::GetGraph() const {
   return graph_;
 }
@@ -86,6 +90,7 @@ const std::unordered_map<std::string, Airport>& Network::GetAirports() const {
 void Network::parseAirports(const std::string& filename) {
   std::ifstream file(filename);
   std::string line;
+  std::vector<Airport> airports;
 
   while (std::getline(file, line)) {
     std::vector<std::string> components;
@@ -103,8 +108,11 @@ void Network::parseAirports(const std::string& filename) {
       Airport a(components[4], std::stod(components[6]), std::stod(components[7]));
       graph_[a.getCode()] = std::unordered_map<std::string, double>();
       airports_[a.getCode()] = a;
+      airports.push_back(a);
     }
   }
+
+  kd_ = KDTree(airports);
 }
 
 void Network::parseFlights(const std::string& filename) {

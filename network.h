@@ -33,6 +33,14 @@ class Network {
    */
   std::string FindBestAirport(const std::string& a1, const std::string& a2, double tolerance) const;
 
+  /**
+   * Finds the closest airport to the specified latitude and longitude values using a KDTree.
+   * @param lat latitude
+   * @param lng longitude
+   * @return airport code of the nearest airport
+   */
+  std::string FindClosestAirport(double lat, double lng);
+
   const FlightGraph& GetGraph() const;
 
   const std::unordered_map<std::string, Airport>& GetAirports() const;
