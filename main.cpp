@@ -28,6 +28,20 @@ int main(int argc, char *argv[]) {
 			std::cout << "Finding best airport to meet..." << std::endl;
 			std::cout << network.FindBestAirport(inputs[2], inputs[3], std::stod(inputs[4])) << std::endl;
 		}
+	} else if (inputs[1] == "animate_bfs") {
+		// ./flights animate_bfs <starting_airport> <gif_output_file> <last_frame_output_file>
+		if (argc < 5) {
+			std::cout << "Not enough arguments";
+		} else if (network.GetAirports().count(inputs[2]) == 0) {
+			std::cout << "Invalid airport" << std::endl;
+		} else {
+			std::cout << "Animating BFS from " << inputs[2] << "..." << std::endl;
+			cs225::PNG png;
+			png.readFromFile("mercator.png");
+			Map map(png);
+			map.Animate(network.GetGraph(), network.GetAirports(), inputs[2], inputs[3], inputs[4]);
+			std::cout << "Animation successful!" << std::endl;
+		}
 	}
 	// std::cout<<"main has compiled"<<std::endl;
 
