@@ -4,6 +4,7 @@
 #include "map.cc"
 #include "airport.cc"
 #include "network.cc"
+#include "kdtree.cc"
 
 #include <iostream>
 #include <vector>
@@ -47,7 +48,8 @@ int main(int argc, char *argv[]) {
 		if (argc < 4) {
 			std::cout << "Not enough arguments" << std::endl;
 		} else {
-			std::cout << "Finding closest airport to given latitude and longitude" << std::endl;
+			std::cout << "Finding closest airport..." << std::endl;
+			std::cout << network.FindClosestAirport(std::stod(inputs[2]), std::stod(inputs[3])) << std::endl;
 		}
 	}
 	// std::cout<<"main has compiled"<<std::endl;

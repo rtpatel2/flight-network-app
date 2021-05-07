@@ -98,7 +98,7 @@ KDTree::KDTree(const KDTree& other) {
 
 const KDTree& KDTree::operator=(const KDTree& rhs) {
   if (this != &rhs) {
-    delete this;
+    clear(root);
     list = rhs.list;
     size = 0;
     root = buildTree(0, list.size() - 1, 0);
