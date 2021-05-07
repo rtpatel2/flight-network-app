@@ -17,11 +17,3 @@ double Airport::getLatitude() const {
 double Airport::getLongitude() const {
   return longitude_;
 }
-
-bool Airport::operator==(const Airport &rhs) const {
-  return code_ == rhs.code_;
-}
-
-bool Airport::operator<(const Airport& rhs) const {
-  return code_ < rhs.code_;
-}
