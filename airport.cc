@@ -4,9 +4,7 @@
 
 Airport::Airport() = default;
 
-Airport::Airport(std::string code, double latitude, double longitude):code_(std::move(code)), latitude_(latitude), longitude_(longitude) {
-
-}
+Airport::Airport(const std::string& code, double latitude, double longitude) : code_(code), latitude_(latitude), longitude_(longitude) {}
 
 std::string Airport::getCode() const {
   return code_;

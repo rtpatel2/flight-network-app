@@ -1,11 +1,12 @@
 #pragma once
+
 #include <string>
 
 class Airport {
  public:
   Airport();
 
-  Airport(std::string code, double latitude, double longitude);
+  Airport(const std::string& code, double latitude, double longitude);
 
   std::string getCode() const;
 
