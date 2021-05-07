@@ -17,7 +17,6 @@ int main(int argc, char *argv[]) {
 	for (int i = 0; i < argc; ++i) {
 		inputs.push_back(argv[i]);
 	}
-
 	
 	if (inputs[1] == "find_best_airport") {
 		// ./flights find_best_airport <first_airport> <second_airport> <tolerance>
@@ -52,33 +51,6 @@ int main(int argc, char *argv[]) {
 			std::cout << network.FindClosestAirport(std::stod(inputs[2]), std::stod(inputs[3])) << std::endl;
 		}
 	}
-	// std::cout<<"main has compiled"<<std::endl;
-
-	// Network full_net("tests/data/airports.txt", "tests/data/routes.txt");
-	// cs225::PNG png;
-	// png.readFromFile("mercator.png");
-	// Map m2(png);
-	// std::string file = "bfs.gif";
-	// // m2.Animate(full_net.GetGraph(), full_net.GetAirports(), "ZMH", file);	
-	// m2.Animate(full_net.GetGraph(), full_net.GetAirports(), "ORD", file, "last_frame_bfs.png");		
 
 	return 0;
 }
-
-	// cs225::HSLAPixel b;
-	//  cs225::PNG png;       png.readFromFile("white.png");
-	//  	 cs225::PNG png2;       png2.readFromFile("myFloodFill.png");
-
-	//  	std::cout<<"png read"<<std::endl;
-
-	// a.addFrame(png);
-	// 	a.addFrame(png2);
-
-	// a.write("BFS.gif");
-
-	
-  	// cs225::PNG lastFrame = a.getFrame( 0 );
- 	// //lastFrame.writeToFile("myFloodFill.png");
-
-	// //Map m(png);
-	// Airport asdfg;
