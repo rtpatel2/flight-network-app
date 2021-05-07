@@ -42,6 +42,13 @@ int main(int argc, char *argv[]) {
 			map.Animate(network.GetGraph(), network.GetAirports(), inputs[2], inputs[3], inputs[4]);
 			std::cout << "Animation successful!" << std::endl;
 		}
+	} else if (inputs[1] == "find_closest_airport") {
+		// ./flights find_closest_airport <starting_latitude> <starting_longitude>
+		if (argc < 4) {
+			std::cout << "Not enough arguments" << std::endl;
+		} else {
+			std::cout << "Finding closest airport to given latitude and longitude" << std::endl;
+		}
 	}
 	// std::cout<<"main has compiled"<<std::endl;
 
