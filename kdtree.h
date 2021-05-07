@@ -59,6 +59,9 @@ class KDTree
      */
     bool shouldReplace(double targetLat, double currBestLat, double potentialLat, double targetLong, double currBestLong, double potentialLong) const;
 
+    /** Default constructor */
+    KDTree();
+
     /**
      * Constructs a KDTree from a vector of Airports, each having dimension Dim.
      * @param newPoints The vector of points to build your KDTree off of.

@@ -31,6 +31,8 @@ bool KDTree::shouldReplace(double targetLat, double currBestLat, double potentia
     return (potentialDist < currentBestDist);
 }
 
+KDTree::KDTree() = default;
+
 KDTree::KDTree(const vector<Airport>& newPoints)
 {
   for (size_t i = 0; i < newPoints.size(); ++i) {
