@@ -15,13 +15,15 @@ Network small_net("tests/data/airports_small.txt", "tests/data/routes_small.txt"
 static constexpr double kEpsilon = 0.01;
 
 TEST_CASE("Draw airports") {
-  cs225::PNG png;       png.readFromFile("mercator.png");
+  cs225::PNG png;       
+  png.readFromFile("mercator.png");
   Map m(png);
-    std::unordered_map<std::string, Airport> airports = full_net.GetAirports();
-    for(auto& it: airports) {
-      m.AddPoint(it.second.getLatitude(), it.second.getLongitude());
-    }
-    REQUIRE(!airports.empty());
+  std::unordered_map<std::string, Airport> airports = full_net.GetAirports();
+
+  for(auto& it: airports) {
+    m.AddPoint(it.second.getLatitude(), it.second.getLongitude(), 0.5);
+  }
+  REQUIRE(!airports.empty());
   m.GetMap().writeToFile("airport_map.png");
 }
 
