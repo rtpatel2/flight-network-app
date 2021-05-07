@@ -8,9 +8,7 @@
 typedef std::unordered_map<std::string, std::unordered_map<std::string, double>> FlightGraph;
 
 
-Map::Map(cs225::PNG& map): map(map) {
-
-}
+Map::Map(cs225::PNG& map): map(map) { }
 
 std::pair<double, double> Map::ProjectMercator(double lat, double lng) {
     double width = map.width();
@@ -80,37 +78,6 @@ void Map::Animate(const FlightGraph& graph,  AirportList& airports, const std::s
         }
 
     }
-
-    // Animation animation;
-    // cs225::PNG temp = cs225::PNG(map);
-    // animation.addFrame(temp);
-
-    // std::queue<std::string> queue;
-    // std::set<std::string> visited;
-    // visited.insert(origin);
-    // queue.push(origin);
-    // int num = 0;
-
-    // while(!queue.empty()) {
-    //     std::string curr = queue.front();
-    //     AddPoint(airports.at(curr).getLatitude(), airports.at(curr).getLongitude());
-
-    //     if(num++ % 50 == 0) {
-    //         cs225::PNG temp = cs225::PNG(map);
-    //         animation.addFrame(temp);
-    //     }   
-
-    //     queue.pop();
-
-    //     for(auto& it: graph.at(curr)) {
-    //         if(visited.count(it.first)==0) {
-    //             queue.push(it.first);
-
-    //             visited.insert(it.first);
-    //         }
-    //     }
-
-    // }
 
     animation.write(gif_filename);
 
