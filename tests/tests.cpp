@@ -116,7 +116,7 @@ TEST_CASE("test_FindNearestNeighbors") {
   }
 }
 
-TEST_CASE("Test Project Mercator") {
+TEST_CASE("Test Project Mercator #1") {
   cs225::PNG png; png.readFromFile("tests/data/mercator.png");
   Map test_map(png);
 
@@ -126,7 +126,17 @@ TEST_CASE("Test Project Mercator") {
   REQUIRE(Approx(projection.second).epsilon(kEpsilon) == 620.31);
 }
 
-TEST_CASE("Test Add Point") {
+TEST_CASE("Test Project Mercator #2") {
+  cs225::PNG png; png.readFromFile("tests/data/mercator.png");
+  Map test_map(png);
+
+  std::pair<double, double> projection = test_map.ProjectMercator(65.2833023071289,-14.401399612426758);
+
+  REQUIRE(Approx(projection.first).epsilon(kEpsilon) == 552);
+  REQUIRE(Approx(projection.second).epsilon(kEpsilon) == 310.04);
+}
+
+TEST_CASE("Test Add Point #1") {
   cs225::PNG png; png.readFromFile("tests/data/mercator.png");
   Map test_map(png);
 
@@ -136,6 +146,17 @@ TEST_CASE("Test Add Point") {
   REQUIRE(test_map.GetMap().getPixel(1083, 619).s == 1);
   REQUIRE(test_map.GetMap().getPixel(1083, 619).l == 0.5);
   REQUIRE(test_map.GetMap().getPixel(1083, 619).a == 1);
+}
 
+TEST_CASE("Test Add Point #2") {
+  cs225::PNG png; png.readFromFile("tests/data/mercator.png");
+  Map test_map(png);
+
+  test_map.AddPoint(65.2833023071289,-14.401399612426758, 0.5);
+
+  REQUIRE(test_map.GetMap().getPixel(551, 309).h == 265);
+  REQUIRE(test_map.GetMap().getPixel(551, 309).s == 1);
+  REQUIRE(test_map.GetMap().getPixel(551, 309).l == 0.5);
+  REQUIRE(test_map.GetMap().getPixel(551, 309).a == 1);
 }
 
