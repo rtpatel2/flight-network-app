@@ -33,7 +33,7 @@ bool KDTree::shouldReplace(double targetLat, double currBestLat, double potentia
 
 KDTree::KDTree() = default;
 
-KDTree::KDTree(const vector<Airport>& newPoints)
+KDTree::KDTree(const std::vector<Airport>& newPoints)
 {
   for (size_t i = 0; i < newPoints.size(); ++i) {
       list.push_back(newPoints[i]);
@@ -55,23 +55,17 @@ KDTree::KDTreeNode* KDTree::buildTree(int left, int right, int dimension) {
   return sroot;
 }
 
-void KDTree::swap(int one, int two) {
-  Airport tmp = list[one];
-  list[one] = list[two];
-  list[two] = tmp;
-}
-
 int KDTree::partition(int left, int right, int pivotIndex, int dimension) {
   Airport pivotValue = list[pivotIndex];
-  swap(pivotIndex, right);
+  std::swap(list[pivotIndex], list[right]);
   int storeIndex = left;
   for (int i = left; i < right; ++i) {
     if (smallerDimVal(list[i].getLatitude(), pivotValue.getLatitude(), list[i].getLongitude(), pivotValue.getLongitude(), dimension)) {
-      swap(storeIndex, i);
+      std::swap(list[storeIndex], list[i]);
       ++storeIndex;
     }
   }
-  swap(right, storeIndex);
+  std::swap(list[right], list[storeIndex]);
   return storeIndex;
 }
 
