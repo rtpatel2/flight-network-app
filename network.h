@@ -1,6 +1,7 @@
 #pragma once
 
 #include "airport.h"
+#include "kdtree.h"
 #include <string>
 #include <unordered_map>
 
@@ -63,4 +64,5 @@ class Network {
 private:
   FlightGraph graph_;
   std::unordered_map<std::string, Airport> airports_;
+  KDTree kd_;
 };
