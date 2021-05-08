@@ -42,14 +42,20 @@ TEST_CASE("file reading") {
   }
 
   SECTION("Confirm two flight routes exist from dataset") {
+    bool visit_first = false;
+    bool visit_second = false;
     for (auto it = graph.begin(); it != graph.end(); ++it) {
       if (it->first == "GKA") {
+        visit_first = true;
         REQUIRE(it->second.begin()->first == "MAG");
       }
       if (it->first == "UAK") {
+        visit_second = true;
         REQUIRE(it->second.begin()->first == "SFJ");
       }
     }
+    REQUIRE(visit_first);
+    REQUIRE(visit_second);
   }
 }
 
