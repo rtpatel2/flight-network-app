@@ -32,6 +32,7 @@ TEST_CASE("Draw airports") {
 TEST_CASE("file reading") {
   //@TODO Implement SECTIONs to validate parsing
   FlightGraph graph = small_net.GetGraph();
+  FlightGraph graph_invalid = invalid_net.GetGraph();
 
   SECTION("Confirm number of existing flight routes") {
     size_t count_flights = 0;
@@ -61,7 +62,6 @@ TEST_CASE("file reading") {
   }
 
   SECTION("Confirm invalid flights are discarded") {
-    FlightGraph graph_invalid = invalid_net.GetGraph();
      size_t count_flights = 0;
      for (auto it = graph_invalid.begin(); it != graph_invalid.end(); ++it) {
        if (!it->second.empty()) {
@@ -69,6 +69,10 @@ TEST_CASE("file reading") {
        }
      }
     REQUIRE(count_flights == 1);
+  }
+
+  SECTION("Confirm invalid airports are discarded") {
+    REQUIRE(invalid_net.GetAirports().size()==9);
   }
 }
 
