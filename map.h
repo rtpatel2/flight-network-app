@@ -16,6 +16,7 @@ class Map {
      * @param map PNG background
      */
     Map(const cs225::PNG& map);
+
     /** 
      * Adds a point to this map.
      * @param lat latitude to add to the map
@@ -23,6 +24,7 @@ class Map {
      * @param luminance luminance of pixels modified by adding a point
      */
     void AddPoint(double lat, double lng, double luminance);
+    
     /** 
      * Creates an animation of a BFS.
      * @param graph an undirected graph of flights between airports
