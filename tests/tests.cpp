@@ -156,12 +156,19 @@ TEST_CASE("test_AddPoint") {
   cs225::PNG png; png.readFromFile("tests/data/mercator.png");
   Map map(png);
 
+  REQUIRE(map.GetMap().getPixel(1083, 619).h != 265);
+  REQUIRE(map.GetMap().getPixel(1083, 619).s != 1);
+  REQUIRE(map.GetMap().getPixel(1083, 619).l != 0.5);
   map.AddPoint(-6.081689834590001, 145.391998291, 0.5);
 
   REQUIRE(map.GetMap().getPixel(1083, 619).h == 265);
   REQUIRE(map.GetMap().getPixel(1083, 619).s == 1);
   REQUIRE(map.GetMap().getPixel(1083, 619).l == 0.5);
   REQUIRE(map.GetMap().getPixel(1083, 619).a == 1);
+
+  REQUIRE(map.GetMap().getPixel(551, 309).h != 265);
+  REQUIRE(map.GetMap().getPixel(551, 309).s != 1);
+  REQUIRE(map.GetMap().getPixel(551, 309).l != 0.23);
 
   map.AddPoint(65.2833023071289, -14.401399612426758, 0.23);
 
