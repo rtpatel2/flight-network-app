@@ -11,6 +11,8 @@
 
 Network full_net("tests/data/airports.txt", "tests/data/routes.txt");
 Network small_net("tests/data/airports_small.txt", "tests/data/routes_small.txt");
+Network invalid_net("tests/data/airports_invalid.txt", "tests/data/routes_invalid.txt");
+
 
 static constexpr double kEpsilon = 0.01;
 
@@ -30,6 +32,7 @@ TEST_CASE("Draw airports") {
 TEST_CASE("file reading") {
   //@TODO Implement SECTIONs to validate parsing
   FlightGraph graph = small_net.GetGraph();
+  FlightGraph graph_invalid = invalid_net.GetGraph();
 
   SECTION("Confirm number of existing flight routes") {
     size_t count_flights = 0;
@@ -56,6 +59,20 @@ TEST_CASE("file reading") {
     }
     REQUIRE(visit_first);
     REQUIRE(visit_second);
+  }
+
+  SECTION("Confirm invalid flights are discarded") {
+     size_t count_flights = 0;
+     for (auto it = graph_invalid.begin(); it != graph_invalid.end(); ++it) {
+       if (!it->second.empty()) {
+         ++count_flights;
+       }
+     }
+    REQUIRE(count_flights == 1);
+  }
+
+  SECTION("Confirm invalid airports are discarded") {
+    REQUIRE(invalid_net.GetAirports().size()==9);
   }
 }
 
