@@ -31,7 +31,7 @@ class Map {
      * @param gif_filename filename to which to save GIF animation of BFS
      * @param png_filename filename to which to save last frame of BFS animation
      */
-    void Animate(const FlightGraph& graph, AirportMap& airports, const std::string& origin, const std::string& gif_filename, const std::string& png_filename);
+    void Animate(const FlightGraph& graph, const AirportMap& airports, const std::string& origin, const std::string& gif_filename, const std::string& png_filename);
     
     /**
      * Projects a given latitude and longitude to coordinates on a mercator projection.

@@ -20,13 +20,18 @@ int main(int argc, char *argv[]) {
 	
 	if (inputs[1] == "find_best_airport") {
 		// ./flights find_best_airport <first_airport> <second_airport> <tolerance>
-		if (argc < 5) {
+		if (argc < 4) {
 			std::cout << "Not enough arguments" << std::endl;
 		} else if (network.GetAirports().count(inputs[2]) == 0 || network.GetAirports().count(inputs[3]) == 0) {
 			std::cout << "Invalid airports" << std::endl;
 		} else {
+			double tol = 0.25;
+			if(argc==5) tol = std::stod(inputs[4]);
+			else {
+				std::cout << "No tolerance provided, using 0.25 as a default" << std::endl;
+			}
 			std::cout << "Finding best airport to meet..." << std::endl;
-			std::cout << network.FindBestAirport(inputs[2], inputs[3], std::stod(inputs[4])) << std::endl;
+			std::cout << network.FindBestAirport(inputs[2], inputs[3], tol) << std::endl;
 		}
 	} else if (inputs[1] == "animate_bfs") {
 		// ./flights animate_bfs <starting_airport> <gif_output_file> <last_frame_output_file>

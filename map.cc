@@ -21,7 +21,7 @@ void Map::AddPoint(double lat, double lng, double luminance) {
     }
 }
 
-void Map::Animate(const FlightGraph& graph,  AirportMap& airports, const std::string& origin, const std::string& gif_filename, const std::string& png_filename){
+void Map::Animate(const FlightGraph& graph, const AirportMap& airports, const std::string& origin, const std::string& gif_filename, const std::string& png_filename){
     Animation animation;
     cs225::PNG temp = cs225::PNG(map_);
     animation.addFrame(temp);

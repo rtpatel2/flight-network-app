@@ -11,6 +11,8 @@
 
 Network full_net("tests/data/airports.txt", "tests/data/routes.txt");
 Network small_net("tests/data/airports_small.txt", "tests/data/routes_small.txt");
+Network invalid_net("tests/data/airports_invalid.txt", "tests/data/routes_invalid.txt");
+
 
 static constexpr double kEpsilon = 0.01;
 
@@ -30,6 +32,7 @@ TEST_CASE("Draw airports") {
 TEST_CASE("file reading") {
   //@TODO Implement SECTIONs to validate parsing
   FlightGraph graph = small_net.GetGraph();
+  FlightGraph graph_invalid = invalid_net.GetGraph();
 
   SECTION("Confirm number of existing flight routes") {
     size_t count_flights = 0;
@@ -42,14 +45,34 @@ TEST_CASE("file reading") {
   }
 
   SECTION("Confirm two flight routes exist from dataset") {
+    bool visit_first = false;
+    bool visit_second = false;
     for (auto it = graph.begin(); it != graph.end(); ++it) {
       if (it->first == "GKA") {
+        visit_first = true;
         REQUIRE(it->second.begin()->first == "MAG");
       }
       if (it->first == "UAK") {
+        visit_second = true;
         REQUIRE(it->second.begin()->first == "SFJ");
       }
     }
+    REQUIRE(visit_first);
+    REQUIRE(visit_second);
+  }
+
+  SECTION("Confirm invalid flights are discarded") {
+     size_t count_flights = 0;
+     for (auto it = graph_invalid.begin(); it != graph_invalid.end(); ++it) {
+       if (!it->second.empty()) {
+         ++count_flights;
+       }
+     }
+    REQUIRE(count_flights == 1);
+  }
+
+  SECTION("Confirm invalid airports are discarded") {
+    REQUIRE(invalid_net.GetAirports().size()==9);
   }
 }
 
@@ -133,12 +156,19 @@ TEST_CASE("test_AddPoint") {
   cs225::PNG png; png.readFromFile("tests/data/mercator.png");
   Map map(png);
 
+  REQUIRE(map.GetMap().getPixel(1083, 619).h != 265);
+  REQUIRE(map.GetMap().getPixel(1083, 619).s != 1);
+  REQUIRE(map.GetMap().getPixel(1083, 619).l != 0.5);
   map.AddPoint(-6.081689834590001, 145.391998291, 0.5);
 
   REQUIRE(map.GetMap().getPixel(1083, 619).h == 265);
   REQUIRE(map.GetMap().getPixel(1083, 619).s == 1);
   REQUIRE(map.GetMap().getPixel(1083, 619).l == 0.5);
   REQUIRE(map.GetMap().getPixel(1083, 619).a == 1);
+
+  REQUIRE(map.GetMap().getPixel(551, 309).h != 265);
+  REQUIRE(map.GetMap().getPixel(551, 309).s != 1);
+  REQUIRE(map.GetMap().getPixel(551, 309).l != 0.23);
 
   map.AddPoint(65.2833023071289, -14.401399612426758, 0.23);
 
