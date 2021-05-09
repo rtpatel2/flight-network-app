@@ -1,11 +1,13 @@
 #pragma once
 
-#include "airport.h"
-#include "kdtree.h"
 #include <string>
 #include <unordered_map>
 
-typedef std::unordered_map<std::string, std::unordered_map<std::string, double>> FlightGraph;
+#include "airport.h"
+#include "kdtree.h"
+
+typedef std::unordered_map<std::string, std::unordered_map<std::string, double>>
+    FlightGraph;
 
 /** Network class maintains airports and flights between them. */
 class Network {
@@ -15,26 +17,32 @@ class Network {
    * @param airports_filename the CSV file containing entries for airports
    * @param flights_filename the CSV file containing entries for flights
    */
-  Network(const std::string& airports_filename, const std::string& flights_filename);
+  Network(const std::string& airports_filename,
+          const std::string& flights_filename);
 
   /**
-   * Computes the distance of the shortest path from one airport to all other airports, going through recorded flights.
+   * Computes the distance of the shortest path from one airport to all other
+   * airports, going through recorded flights.
    * @param a1 starting airport code
    * @return map of airport to distance of shortest paths, in miles
    */
-  std::unordered_map<std::string, double> ComputeShortestPaths(const std::string& a1) const;
+  std::unordered_map<std::string, double> ComputeShortestPaths(
+      const std::string& a1) const;
 
   /**
-   * Finds the best airport for two friends to meet, given their two starting airports.
+   * Finds the best airport for two friends to meet, given their two starting
+   * airports.
    * @param a1 first airport code
    * @param a2 second airport code
    * @param tolerance a tolerance value to weight fairness of travel distances
    * @return airport code of the optimal airport for the friends to meet
    */
-  std::string FindBestAirport(const std::string& a1, const std::string& a2, double tolerance) const;
+  std::string FindBestAirport(const std::string& a1, const std::string& a2,
+                              double tolerance) const;
 
   /**
-   * Finds the closest airport to the specified latitude and longitude values using a KDTree.
+   * Finds the closest airport to the specified latitude and longitude values
+   * using a KDTree.
    * @param lat latitude
    * @param lng longitude
    * @return airport code of the nearest airport
@@ -62,14 +70,15 @@ class Network {
   void parseFlights(const std::string& filename);
 
   /**
-   * Computes the great-circle distance between two airports joined with a direct flight.
+   * Computes the great-circle distance between two airports joined with a
+   * direct flight.
    * @param a1 first airport code
    * @param a2 second airport code
    * @return distance between the two airports, in miles
    */
   double ComputeDistance(const std::string& a1, const std::string& a2) const;
 
-private:
+ private:
   FlightGraph graph_;
   std::unordered_map<std::string, Airport> airports_;
   KDTree kd_;
