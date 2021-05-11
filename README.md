@@ -37,7 +37,8 @@ To run the test suite, use `make test` followed by `./test`. The test suite thor
 
 A breadth-first traversal starting at ORD:
 ![bfs.gif](https://i.imgur.com/WnhFmdD.gif)
-This GIF shows out all airports that can be reached by a sequence of one or more flights from ORD; the darker the color, the fewer flights are required.
+This GIF shows all airports that can be reached by a sequence of one or more flights from ORD; the darker the color, the fewer flights are required. Each successive frame in the 
+animation adds all airports that can be reached within one more flight from the origin than those in the previous frame.
 
 The breadth-first traversal also outputs a PNG of the complete breadth-first traversal.
 ![last_frame_bfs.png](https://i.gyazo.com/7257efa7296c5f13249781253f093874.jpg)
@@ -46,5 +47,6 @@ The other functionalities produce output to the console, so there aren't similar
 
 ## Citations
 
-Our main dataset for airports and flight data was sourced from [openflights.org](https://openflights.org/)
-The background Mercator projection image can be found [here](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mercator_projection_Square.JPG/1200px-Mercator_projection_Square.JPG)
+Our main dataset for airports and flight data was sourced from [openflights.org](https://openflights.org/).
+
+The background Mercator projection image can be found [here](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mercator_projection_Square.JPG/1200px-Mercator_projection_Square.JPG).
