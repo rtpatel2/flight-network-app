@@ -2,9 +2,13 @@
 
 ### Final Deliverables
 
-Say two friends live very far apart -- possibly across a very large country or continent, or several continents apart. If these two friends wanted to meet, how would they decide where to fly? One could fly to the other, but one friend has to travel much further than the other. Alternatively, consider if they wanted to explore a new city together. How might they find the most convenient city, closest to both by flight? We will create an application that will determine the best airport for two friends to meet at, given their departure airports. The best airport will be the one where the travel distance for both friends is roughly equal and minimized. 
+Our project included three main deliverables: a 2-Dimensional KD-Tree implementation with a find nearest neighbor algorithm to identify the closest airport to a given set of latitude/longitude coordinate pairs (friend's location), identifying the nearest airport for two friends to meet at using Djikstra's algorithm, and an animation of the Breadth-First Search from an identified starting airport. All algorithms work as expected and have corresponding demo(s) shown below.
 
-### Code Demos
+### New Discoveries
+
+Filler
+
+### Final Demo
 
 1) Find Closest Airport Given A Set of Lat, Long Coordinates
 ![find_closest_airport.png](https://i.imgur.com/L6InCPE.png)
@@ -21,7 +25,7 @@ The breadth-first traversal also outputs a PNG of the complete breadth-first tra
 
 3) Find Best Airport Between Two Friends
 ![find_best_airport.png](https://i.imgur.com/rcYf4Yr.png)
-Two friends, one in Chicago and one in San Jose, want to find the best airport to meet at from their airports of ORD (O'Hare International Airport) and SJC (San Jose International Airport). The best airport for the two friends to meet at is properly identifed as SLC (Salt Lake City International Airport).
+Two friends, one in Chicago and one in San Jose, want to find the best airport to meet at from their airports of ORD (O'Hare International Airport) and SJC (San Jose International Airport). The best airport for the two friends to meet at is properly identified as SLC (Salt Lake City International Airport).
 
 4) Test Executable
 ![tests.png](https://i.imgur.com/IbKKTM6.png)
