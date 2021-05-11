@@ -27,7 +27,16 @@ To install, simply clone this repository onto your local machine. To run the cod
 
 ```
 ./flights find_best_airport <airport_data> <flight_data> <first_airport> <second_airport> [tolerance]
+```
+In the above command, we find the "ideal" meeting airport for two friends given their origin airports. We try to minimize total distance traveled while also making it "fair"
+by keeping the travel distance fairly equal for both friends. Tolerance dictates the minimum portion of the distance traveled by each friend out of the total distance traveled by both friends together. A tolerance of 0 will allow both friends to meet at one of the friends' origin airports, whereas a tolerance of 0.5 will require the travel distances be equal.
+
+```
 ./flights animate_bfs <airport_data> <flight_data> <starting_airport> <gif_output_file> <last_frame_output_file>
+```
+The above command produces a bfs originating from starting_airport. Each successive frame of the output gif will add all airports accessible within an extra degree of separation from the origin.
+
+```
 ./flights find_closest_airport <airport_data> <flight_data> <starting_latitude> <starting_longitude>
 ```
 
