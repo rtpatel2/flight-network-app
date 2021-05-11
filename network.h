@@ -34,7 +34,11 @@ class Network {
    * airports.
    * @param a1 first airport code
    * @param a2 second airport code
-   * @param tolerance a tolerance value to weight fairness of travel distances
+   * @param tolerance a tolerance between 0 and 0.5 to weight fairness of travel distances.
+   * Tolerance dictates the minimum portion of the distance traveled by each friend out of
+   * the total distance traveled by both friends together.
+   * A tolerance of 0 will allow both friends to meet at one of the friends' origin airports, whereas
+   * a tolerance of 0.5 will require the travel distances be equal.
    * @return airport code of the optimal airport for the friends to meet
    */
   std::string FindBestAirport(const std::string& a1, const std::string& a2,
