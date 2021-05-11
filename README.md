@@ -12,6 +12,7 @@
 - [Running the App](#running-the-app)
 - [Demo](#demo)
 - [Citations](#citations)
+- [Video Presentation](https://drive.google.com/file/d/1cU0GS6KX4AAW4uD5xIKkJxu78Q1is-FR/view?usp=sharing)
 
 ## Overview
 We created an application providing three analyses related to determining the best airport for two friends in different parts of the world to meet. The primary functionality of our codebase, as well as the function to find the best airport for two friends to meet, is located in the Network class. The Airport class is fairly simple, only maintaining relevant fields about one airport. The KDTree class is used to perform a nearest neighbor search, in order to determine the airport closest to a person based on given latitude and longitude coordinates. The Map class is used to visualize a breath-first traversal from a given starting airport and output the result as a PNG and GIF. The main.cpp file contains the logic for parsing CLI arguments and executing the appropriate functions.
