@@ -1,4 +1,3 @@
-#
 # This is a generic Makefile designed to compile a sample directory of code.
 # This file depends on variables having been set before calling:
 #   EXE: The name of the result file
@@ -56,19 +55,6 @@ $(OBJS_DIR):
 $(OBJS_DIR)/%.o: %.cpp | $(OBJS_DIR)
 	$(CXX) $(CXXFLAGS) $< -o $@
 
-
-# Rules for compiling test suite.
-# - Grab every .cpp file in tests/, compile them to .o files
-# - Build the test program w/ catchmain.cpp from cs225
-# OBJS_TEST += $(filter-out $(EXE_OBJ), $(OBJS))
-# CPP_TEST = $(wildcard tests/*.cpp)
-# CPP_TEST += $(wildcard *.cpp)
-# CPP_TEST += cs225/catch/catchmain.cpp
-# OBJS_TEST += $(CPP_TEST:.cpp=.o)
-
-# $(TEST): output_msg $(patsubst %.o, $(OBJS_DIR)/%.o, $(OBJS_TEST))
-# 	$(LD) $(filter-out $<, $^) $(LDFLAGS) -o $@
-
 # Additional dependencies for object files are included in the clang++
 # generated .d files (from $(DEPFILE_FLAGS)):
 -include $(OBJS_DIR)/*.d
@@ -94,8 +80,6 @@ ifneq ($(strip $(SKIP_EWS_CHECK)),True)
 CLANG_VERSION_MSG = $(warning $(ccyellow) Looks like you are not on EWS. Be sure to test on EWS before the deadline. $(ccend))
 endif
 endif
-
-# output_msg: ; $(CLANG_VERSION_MSG)
 
 # Standard C++ Makefile rules:
 clean:
