@@ -47,3 +47,4 @@ The other functionalities produce output to the console, so there aren't similar
 ## Citations
 
 Our main dataset for airports and flight data was sourced from [openflights.org](https://openflights.org/)
+The background Mercator projection image can be found [here](https://upload.wikimedia.org/wikipedia/commons/thumb/7/73/Mercator_projection_Square.JPG/1200px-Mercator_projection_Square.JPG)
