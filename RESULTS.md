@@ -34,3 +34,7 @@ Two friends, one in Chicago and one in San Jose, want to find the best airport t
 4) Test Executable
 ![tests.png](https://i.imgur.com/IbKKTM6.png)
 Proof that our test suite produces accurate results for all aspects of the Flight Graph Platform.
+
+### Future plans
+
+Beneficial extensions to this project mostly pertain to make the product user-friendly. A front-end application where users need not enter bash commands, for example, would be easier to use and more aesthetically pleasing. We struggled to find free up-to-date flight data to parse, but a more refined version of this project would find an API that also takes the time of a flight into consideration. Our current dataset excludes times, and if, for example, these flights were weekly, some of the connections could take weeks with our current implementation. We would also modify our "best" airport algorithm accordingly to accomodate to the next available metting time given the times of flights.
