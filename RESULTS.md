@@ -6,7 +6,11 @@ Our project included three main deliverables: a 2-Dimensional KD-Tree implementa
 
 ### New Discoveries
 
-Filler
+One discovery we made by implementing the bfs gif is that many popular hub airports like O'Hare and JFK can get to the vast majority of airports in our dataset within 6 flights. Similarly, every continent (besides Antarctica) can be reached within 1-2 flights from such popular airports.
+
+We also noticed that particular regions in northern Canada are mainly covered by smaller, regional airports. As such, we see in the bfs originating at O'Hare that there is a "trail" of airports that appear one at a time in northern Canada, indicating that these airports likely only serve small, local flights to neighboring regional airports. A similar observation applies to central Africa, central Alaska, northern Norway, and central Brazil. 
+
+Using the color-coding of the last frame from the bfs, we can also draw conclusions about how interconnected two countries are. For example, the bfs from O'hare shows a surprising amount of purple in Japan, the Caribbean, coastal China, and Europe. This is likely attrituble to United States business and tourism interests abroad.
 
 ### Final Demo
 
