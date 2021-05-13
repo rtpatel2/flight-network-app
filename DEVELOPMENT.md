@@ -33,5 +33,5 @@ Shruthik also incorporated the KDTree class from MP Mosaics and refactored it to
 For next week, we plan to finish the project. This includes adding a command line interface to pass parameters such as friend airports or the BFS visualization origin airport. We will also thoroughly test the remaining untested functionality. We will clean up the codebase and add documentation where necessary. Finally, we will draft a README that explains the project and how to run the executables.
 
 ### 5/6/21-5/12/21
-This week we successfully completed the project. The four of us added documentation throughout the project.
+This week we successfully completed the project. The four of us added documentation throughout the project, as well as a command line interface to run the most important methods.
 We also added the remaining test cases to verify all functionality. Finally, we finished the readme and results files.
