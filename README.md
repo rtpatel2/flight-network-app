@@ -46,12 +46,12 @@ To run the test suite, use `make test` followed by `./test`. The test suite thor
 ## Demo
 
 A breadth-first traversal starting at ORD:
-![bfs.gif](https://i.imgur.com/WnhFmdD.gif)
+![bfs.gif](https://github.com/rtpatel2/flight-network-app/blob/master/bfs.gif)
 This GIF shows all airports that can be reached by a sequence of one or more flights from ORD; the darker the color, the fewer flights are required. Each successive frame in the 
 animation adds all airports that can be reached within one more flight from the origin than those in the previous frame.
 
 The breadth-first traversal also outputs a PNG of the complete breadth-first traversal.
-![last_frame_bfs.png](https://i.gyazo.com/7257efa7296c5f13249781253f093874.jpg)
+![last_frame_bfs.png](https://github.com/rtpatel2/flight-network-app/blob/master/last_frame_bfs.png)
 
 The other functionalities produce output to the console, so there aren't similarly interesting visualizations for those pieces of functionality.
 
